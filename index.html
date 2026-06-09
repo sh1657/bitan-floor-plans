@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="תוכניות דיור אינטראקטיביות - נכס בצורת L">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Floor Plans</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
@@ -31,6 +33,11 @@
     .card.u3{border-color:#e65100}.card.u4{border-color:#00838f}
     .plan-panel{display:none}.plan-panel.active{display:block}
     footer{text-align:center;padding:1.2rem;font-size:.78rem;color:#888}
+    .hdr-actions{margin-top:.6rem;display:flex;flex-wrap:wrap;gap:.5rem}
+    .hdr-actions a,.hdr-actions button{font-size:.8rem;padding:.35rem .75rem;border-radius:6px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;cursor:pointer;text-decoration:none;font-family:inherit}
+    .hdr-actions a:hover,.hdr-actions button:hover{background:rgba(255,255,255,.22)}
+    .summary-box{display:flex;flex-wrap:wrap;gap:1rem;margin-top:.8rem;padding:.75rem 1rem;background:#f1f8e9;border-radius:8px;font-size:.85rem}
+    .summary-box strong{color:#1a3a2a}
   </style>
 </head>
 <body>
@@ -38,6 +45,10 @@
     <h1 id="hdr-title"></h1>
     <p id="hdr-sub"></p>
     <p id="hdr-ver" style="font-size:.75rem;opacity:.75;margin-top:.25rem"></p>
+    <div class="hdr-actions">
+      <a id="lnk-online" href="https://sh1657.github.io/bitan-floor-plans/" target="_blank" rel="noopener"></a>
+      <button type="button" id="btn-copy-link"></button>
+    </div>
   </header>
   <div class="plan-tabs">
     <button class="active" data-plan="phase0" id="tab-phase0"></button>
@@ -73,6 +84,7 @@
         <div class="card u3"><h3 id="c3-2h"></h3><p id="c3-2p"></p></div>
         <div class="card u2"><h3 id="c3-3h"></h3><p id="c3-3p"></p></div>
       </div>
+      <div class="summary-box" id="sum-plan3"></div>
     </div>
     <div class="plan-panel" id="panel-plan4">
       <div class="controls">
@@ -111,7 +123,12 @@ var H={
   u1btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x31), u2btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x32),
   u3btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x33), u4btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05D3,0x05F3),
   ftr:u(0x05EA,0x05D5,0x05DB,0x05E0,0x05D9,0x05EA,32,0x05E8,0x05D0,0x05E9,0x05D5,0x05E0,0x05D9,0x05EA,32,0x05E7,0x05E0,0x05D4,32,0x05DE,0x05D9,0x05D3,0x05D4,32,49,0x05DE,0x05F3,32,61,32,49,0x05DE,0x05F3),
-  ver:u(0x05D2,0x05E8,0x05E1,0x05D4,32,51,0x2E,0x31,32,0x2014,32,0x05DB,0x05EA,0x05D5,0x05DE,0x05D4,32,0x05D1,0x05E2,0x05D9,0x05D9,0x05EA,0x05EA,0x2E,32,0x05D9,0x05D7,0x05F3,0x05F3,0x32,32,0x05DB,0x05EA,0x05D5,0x05DE,0x05D4,0x2C,32,0x05D9,0x05D7,0x05F3,0x05F3,0x33,32,0x05D1,0x05D6,0x05E0,0x05D1,0x2E),
+  ver:u(0x05D2,0x05E8,0x05E1,0x05D4,32,51,0x2E,0x32,32,0x2014,32,0x05E1,0x05D9,0x05DB,0x05D5,0x05DD,0x05E9,0x05D8,0x05D7,0x05D9,0x05DD,0x2C,32,0x05E7,0x05E0,0x05D4,0x05DE,0x05D9,0x05D3,0x05D4,0x2C,32,0x05E9,0x05D9,0x05EA,0x05D5,0x05E3,0x05D9,0x05DD),
+  lnkOnline:u(0x05E4,0x05EA,0x05D7,0x05D1,0x05E8,0x05D4,32,0x05D1,0x05D0,0x05D9,0x05E0,0x05D8,0x05E8,0x05E0,0x05D8),
+  copyLink:u(0x05D4,0x05E2,0x05EA,0x05E7,32,0x05E7,0x05D9,0x05E9,0x05D5,0x05E8,0x05DC,0x05E9,0x05D9,0x05E4,0x05D5,0x05E8),
+  copied:u(0x05D4,0x05D5,0x05E2,0x05EA,0x05E7,0x21),
+  sum3:u(0x05E1,0x05D4,0x05F4,0x05DB,0x05E9,0x05D8,0x05D7,0x05D9,0x05DD,0x3A,32,0x05D9,0x05D7,0x05F3,0x05F3,0x31,32,0x05E7,0x05D9,0x05D9,0x05DD,32,0x2B,32,0x05D9,0x05D7,0x05F3,0x05F3,0x32,32,0x05D1,0x05E8,0x05E6,0x05E4,0x05D4,32,0x2B,32,0x05D9,0x05D7,0x05F3,0x05F3,0x33,32,0x05D1,0x05D6,0x05E0,0x05D1,32,0x2248,32,49,0x35,32,0x05DE,0x05F4,0x05E8,32,0x05D1,0x05E0,0x05D9,0x05D9,0x05D4),
+  scale1m:u(0x05E7,0x05E0,0x05D4,0x05DE,0x05D9,0x05D3,0x05D4,0x3A,32,49,0x05DE,0x05F3,32,61,32,49,0x05E7,0x05E4,0x05D7),
   c0h:u(0x05E9,0x05DC,0x05D1,32,0x05F3,0x05F3,0x30,32,45,32,0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05D0,0x05D7,0x05EA),
   c0p:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05D0,0x05D7,0x05EA,32,0x05D1,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05D4,0x05E7,0x05D9,0x05D9,0x05DD,0x3A,32,0x05E1,0x05DC,0x05D5,0x05DF,0x2B,0x05DE,0x05D8,0x05D1,0x05D7,0x2B,0x05E4,0x05D8,0x05D9,0x05D5,0x2B,0x05D7,0x05D3,0x05E8,32,0x05E9,0x05D9,0x05E0,0x05D4,0x2B,0x05E9,0x05D9,0x05E8,0x05D5,0x05EA,0x05D9,0x05DD,0x2B,0x05DE,0x05DE,0x05F4,0x05D3,32,0x05E0,0x05E2,0x05D5,0x05DC,0x05D9,0x05DD,0x2E,32,0x05D4,0x05DE,0x05DE,0x05F4,0x05D3,32,0x05DE,0x05E1,0x05D5,0x05DE,0x05DF,32,0x05D1,0x05D0,0x05D3,0x05D5,0x05DD,32,0x2014,32,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05E0,0x05E2,0x05D5,0x05DC,0x05D4,0x2E),
   c31h:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x31,32,45,32,0x05DE,0x05E9,0x05E4,0x05D7,0x05D4,0x2B,0x05DE,0x05DE,0x05F4,0x05D3), c31p:u(0x05DB,0x05DC,32,0x05D4,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05D4,0x05E7,0x05D9,0x05D9,0x05DD,32,0x05E0,0x05E9,0x05D0,0x05E8,0x2E,32,0x05E1,0x05DC,0x05D5,0x05DF,0x2B,0x05E4,0x05D8,0x05D9,0x05D5,0x2B,0x05D7,0x05D3,0x05E8,0x2B,0x05DE,0x05D8,0x05D1,0x05D7,0x2B,0x05E9,0x05D9,0x05E8,0x05D5,0x05EA,0x05D9,0x05DD,0x2B,0x05DE,0x05DE,0x05F4,0x05D3,0x2E,32,0x05DB,0x05E0,0x05D9,0x05E1,0x05D4,32,0x05E2,0x05D5,0x05E8,0x05E3,0x2E),
@@ -146,8 +163,18 @@ function setUI(){
   document.getElementById('c4-bh').textContent=H.c4bh;document.getElementById('c4-bp').textContent=H.c4bp;
   document.getElementById('c4-ch').textContent=H.c4ch;document.getElementById('c4-cp').textContent=H.c4cp;
   document.getElementById('c4-dh').textContent=H.c4dh;document.getElementById('c4-dp').textContent=H.c4dp;
+  var lo=document.getElementById('lnk-online');if(lo){lo.textContent=H.lnkOnline;lo.href='https://sh1657.github.io/bitan-floor-plans/?v=3.2';}
+  var cl=document.getElementById('btn-copy-link');if(cl)cl.textContent=H.copyLink;
+  var s3=document.getElementById('sum-plan3');if(s3)s3.innerHTML='<strong>'+H.sum3.split(':')[0]+':</strong> '+H.sum3.split(':').slice(1).join(':');
 }
 setUI();
+document.getElementById('btn-copy-link').addEventListener('click',function(){
+  var url='https://sh1657.github.io/bitan-floor-plans/?v=3.2';
+  navigator.clipboard.writeText(url).then(function(){
+    var b=document.getElementById('btn-copy-link');b.textContent=H.copied;
+    setTimeout(function(){b.textContent=H.copyLink;},2000);
+  });
+});
 
 var T={
   plot:u(0x05DE,0x05EA,0x05D7,0x05DD),
@@ -191,8 +218,9 @@ function el(tag,attrs,children){var e=document.createElementNS('http://www.w3.or
 function rect(x,y,w,h,fill,stroke,sw,ex){var a={x:x,y:y,width:w,height:h,fill:fill||'none'};if(stroke){a.stroke=stroke;a['stroke-width']=sw||2;}if(ex)Object.assign(a,ex);return el('rect',a);}
 function txt(x,y,s,opts){var a={x:x,y:y,text:s};if(opts)Object.keys(opts).forEach(function(k){a[k]=opts[k];});return el('text',a);}
 function win(x1,y1,x2,y2){return el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'#0288d1','stroke-width':10});}
-function drawBase(svg){
-  svg.appendChild(el('defs',null,[el('pattern',{id:'grid',width:'50',height:'50',patternUnits:'userSpaceOnUse'},[el('path',{d:'M 50 0 L 0 0 0 50',fill:'none',stroke:'#e8e8e8','stroke-width':'0.5'})])]));
+function drawBase(svg,prefix){
+  var gid=(prefix||'g')+'-grid';
+  svg.appendChild(el('defs',null,[el('pattern',{id:gid,width:'50',height:'50',patternUnits:'userSpaceOnUse'},[el('path',{d:'M 50 0 L 0 0 0 50',fill:'none',stroke:'#e8e8e8','stroke-width':'0.5'})])]));
   svg.appendChild(rect(-20,G.YT,G.TW,G.YD,'none','#795548',3,{'stroke-dasharray':'12 6'}));
   svg.appendChild(txt(480,G.YT+G.YD+25,T.plot,{'text-anchor':'middle',fill:'#795548','font-size':12}));
   svg.appendChild(el('g',{id:'yard-top'},[rect(-20,G.YT,G.TW,G.TH,'#e8f5e9','#66bb6a'),txt(480,G.YT+60,T.yardTop,{'text-anchor':'middle','font-size':14,fill:'#2e7d32','font-weight':'bold'})]));
@@ -201,9 +229,15 @@ function drawBase(svg){
     txt(825,G.YT+G.YD*0.72,T.yardSideSub,{'text-anchor':'middle','font-size':10,fill:'#558b2f',transform:'rotate(90 825 '+(G.YT+G.YD*0.72)+')'}),
     rect(G.YX,G.YT,G.PATH,G.YD,'#fff9c4','#fbc02d',1.5,{'stroke-dasharray':'6 4'}),
     txt(740,G.YT+G.YD/2,T.path,{'text-anchor':'middle','font-size':10,fill:'#f57f17',transform:'rotate(90 740 '+(G.YT+G.YD/2)+')'})]));
-  svg.appendChild(rect(0,0,G.BW,G.BD,'url(#grid)'));
+  svg.appendChild(rect(0,0,G.BW,G.BD,'url(#'+gid+')'));
   svg.appendChild(el('path',{d:'M 0 0 H '+G.BW+' V '+G.BD+' H '+G.MX+' V '+(G.MY+G.MD)+' H 0 Z',fill:'none',stroke:'#1a1a1a','stroke-width':8}));
   svg.appendChild(txt(340,720,T.builtExisting,{'text-anchor':'middle','font-size':11,fill:'#555','font-weight':'bold'}));
+  var sg=el('g',{id:'scale-bar'});
+  sg.appendChild(rect(-50,G.YT+G.YD+55,100,6,'#333','#333',1));
+  sg.appendChild(el('line',{x1:-50,y1:G.YT+G.YD+50,x2:-50,y2:G.YT+G.YD+66,stroke:'#333','stroke-width':2}));
+  sg.appendChild(el('line',{x1:50,y1:G.YT+G.YD+50,x2:50,y2:G.YT+G.YD+66,stroke:'#333','stroke-width':2}));
+  sg.appendChild(txt(0,G.YT+G.YD+78,T.scale1m,{'text-anchor':'middle','font-size':9,fill:'#555'}));
+  svg.appendChild(sg);
 }
 function drawMamadInUnit(svg,prefix,fill,stroke,fc){
   var id=prefix+'-mamad';
@@ -244,7 +278,7 @@ function drawEntries(svg,entries){var g=el('g',{id:'entrances'});
     g.appendChild(txt(e.x,e.y+4,e.n,{'text-anchor':'middle','font-size':8,fill:'#fff','font-weight':'bold'}));
     g.appendChild(txt(e.lx,e.ly,e.lbl,{'font-size':10,fill:e.color,'font-weight':'bold'}));});svg.appendChild(g);}
 
-function buildPhase0(svg){drawBase(svg);
+function buildPhase0(svg){drawBase(svg,'p0');
   svg.appendChild(el('g',{id:'unit0'},[
     rect(0,0,680,740,'rgba(106,27,154,0.22)','#6a1b9a',3),
     el('line',{x1:300,y1:0,x2:300,y2:740,stroke:'#6a1b9a','stroke-width':1,'stroke-dasharray':'6 4',opacity:'0.45'}),
@@ -264,7 +298,7 @@ drawWindows(svg);drawStack(svg,[]);drawEntries(svg,[{x:150,y:G.BD+8,n:'1',color:
 svg.appendChild(txt(300,660,T.u0t+' (~48 '+T.sqm+')',{'text-anchor':'middle','font-size':14,fill:'#6a1b9a','font-weight':'bold'}));
 svg.appendChild(txt(300,678,T.mamadNote,{'text-anchor':'middle','font-size':9,fill:'#6a1b9a'}));}
 
-function buildPlan3(svg){drawBase(svg);
+function buildPlan3(svg){drawBase(svg,'p3');
   svg.appendChild(el('line',{x1:-20,y1:0,x2:970,y2:0,stroke:'#795548','stroke-width':2,'stroke-dasharray':'10 6'}));
   svg.appendChild(txt(900,-15,T.newInYard,{'font-size':9,fill:'#795548'}));
   svg.appendChild(el('g',{id:'unit1'},[
@@ -313,30 +347,40 @@ function buildPlan3(svg){drawBase(svg);
   svg.appendChild(txt(300,660,T.u1t+' (~63 '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#1565c0','font-weight':'bold'}));
   svg.appendChild(txt(300,676,T.mamadNote,{'text-anchor':'middle','font-size':9,fill:'#1565c0'}));}
 
-function buildPlan4(svg){drawBase(svg);
+function buildPlan4(svg){drawBase(svg,'p4');
   svg.appendChild(el('line',{x1:-20,y1:0,x2:970,y2:0,stroke:'#795548','stroke-width':2,'stroke-dasharray':'10 6'}));
   svg.appendChild(txt(900,-15,T.newInYard,{'font-size':9,fill:'#795548'}));
-  svg.appendChild(el('g',{id:'unit3'},[rect(80,G.YT,270,G.TH,'#ffe0b2','#e65100',3),
-    txt(215,G.YT+40,T.Ct+' (~40 '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#bf360c','font-weight':'bold'}),
-    txt(215,G.YT+160,T.livingKit,{'text-anchor':'middle','font-size':11})]));
-  svg.appendChild(el('g',{id:'unit4'},[rect(370,G.YT,270,G.TH,'#b2ebf2','#00838f',3),
-    txt(505,G.YT+40,T.Dt+' (~38 '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#006064','font-weight':'bold'}),
-    txt(505,G.YT+160,T.livingKit,{'text-anchor':'middle','font-size':11})]));
+  svg.appendChild(el('g',{id:'unit3'},[rect(-20,G.YT,350,G.TH,'#ffe0b2','#e65100',3),
+    txt(155,G.YT+40,T.Ct+' (~40 '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#bf360c','font-weight':'bold'}),
+    txt(155,G.YT+38,T.aboveOnly,{'text-anchor':'middle','font-size':9,fill:'#e65100'}),
+    txt(155,G.YT+160,T.livingKit,{'text-anchor':'middle','font-size':11})]));
+  svg.appendChild(el('g',{id:'unit4'},[rect(350,G.YT,350,G.TH,'#b2ebf2','#00838f',3),
+    txt(525,G.YT+40,T.Dt+' (~38 '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#006064','font-weight':'bold'}),
+    txt(525,G.YT+38,T.aboveOnly,{'text-anchor':'middle','font-size':9,fill:'#006064'}),
+    txt(525,G.YT+160,T.livingKit,{'text-anchor':'middle','font-size':11})]));
+  svg.appendChild(el('g',{id:'unit1'},[
+    rect(0,0,680,740,'rgba(21,101,192,0.22)','#1565c0',3),
+    el('line',{x1:300,y1:0,x2:300,y2:740,stroke:'#1565c0','stroke-width':1,'stroke-dasharray':'6 4',opacity:'0.45'}),
+    el('line',{x1:300,y1:250,x2:500,y2:250,stroke:'#1565c0','stroke-width':1,'stroke-dasharray':'6 4',opacity:'0.45'}),
+    el('line',{x1:300,y1:470,x2:500,y2:470,stroke:'#1565c0','stroke-width':1,'stroke-dasharray':'6 4',opacity:'0.45'}),
+    el('line',{x1:0,y1:100,x2:300,y2:100,stroke:'#1565c0','stroke-width':1,'stroke-dasharray':'6 4',opacity:'0.45'}),
+    txt(150,55,T.patio,{'text-anchor':'middle','font-size':12,fill:'#0d47a1','font-weight':'bold'}),
+    txt(150,420,T.salon,{'text-anchor':'middle','font-size':12,fill:'#0d47a1','font-weight':'bold'}),
+    txt(490,125,T.bed,{'text-anchor':'middle','font-size':12,fill:'#0d47a1','font-weight':'bold'}),
+    txt(400,360,T.kitchen,{'text-anchor':'middle','font-size':11,fill:'#0d47a1'}),
+    txt(400,560,T.bath,{'text-anchor':'middle','font-size':11,fill:'#0d47a1'})
+  ]}));
   drawRooms(svg,{rooms:[
-    {id:'unit1',x:0,y:100,w:300,h:640,fill:'rgba(21,101,192,0.2)',stroke:'#1565c0',label:T.salon,bold:true,fc:'#0d47a1'},
-    {id:'unit1-p',x:0,y:0,w:300,h:100,fill:'rgba(21,101,192,0.3)',stroke:'#1565c0',label:T.patio},
-    {id:'unit1-kit',x:300,y:250,w:200,h:220,fill:'rgba(21,101,192,0.12)',stroke:'#1565c0',label:T.kitchen},
-    {id:'unit1-bath',x:300,y:470,w:200,h:180,fill:'rgba(21,101,192,0.12)',stroke:'#1565c0',label:T.bath},
     {id:'unit2-base',x:500,y:0,w:180,h:470,fill:'rgba(46,125,50,0.08)',stroke:'none'},
     {id:'unit2',x:500,y:0,w:180,h:250,fill:'rgba(46,125,50,0.25)',stroke:'#2e7d32',sw:2,label:T.Bt,sub:'~28 '+T.sqm,bold:true,fc:'#1b5e20'},
     {id:'unit2-wc',x:500,y:250,w:80,h:100,fill:'rgba(46,125,50,0.18)',stroke:'#2e7d32',label:T.wcNew,fs:9}
   ]});drawMamadInUnit(svg,'unit1','rgba(21,101,192,0.25)','#1565c0','#0d47a1');
   drawWindows(svg);
-  drawStack(svg,[{x1:590,y1:360,x2:530,y2:300,lbl:'B',lx:545,ly:315},{x1:590,y1:340,x2:215,y2:G.YT+160,lbl:'C',lx:400,ly:G.YT+80},{x1:590,y1:330,x2:505,y2:G.YT+160,lbl:'D',lx:540,ly:G.YT+80}]);
+  drawStack(svg,[{x1:590,y1:360,x2:530,y2:300,lbl:'B',lx:545,ly:315},{x1:590,y1:340,x2:155,y2:G.YT+160,lbl:'C',lx:380,ly:G.YT+80},{x1:590,y1:330,x2:525,y2:G.YT+160,lbl:'D',lx:560,ly:G.YT+80}]);
   drawPartitions(svg,[{x1:500,y1:0,x2:500,y2:740,w:5},{x1:350,y1:G.YT,x2:350,y2:0,w:3}]);
   drawEntries(svg,[{x:150,y:G.BD+8,n:'A',color:'#1565c0',lx:150,ly:G.BD+35,lbl:T.entryRear},
-    {x:676,y:200,n:'B',color:'#2e7d32',lx:700,ly:200,lbl:T.entrySide},{x:215,y:G.YT-8,n:'C',color:'#e65100',lx:215,ly:G.YT-35,lbl:T.entryFront},{x:505,y:G.YT-8,n:'D',color:'#00838f',lx:505,ly:G.YT-35,lbl:T.entryFront}]);
-  svg.appendChild(txt(200,660,T.At+' (~38 '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#1565c0','font-weight':'bold'}));
+    {x:676,y:200,n:'B',color:'#2e7d32',lx:700,ly:200,lbl:T.entrySide},{x:155,y:G.YT-8,n:'C',color:'#e65100',lx:155,ly:G.YT-35,lbl:T.entryFront},{x:525,y:G.YT-8,n:'D',color:'#00838f',lx:525,ly:G.YT-35,lbl:T.entryFront}]);
+  svg.appendChild(txt(300,660,T.At+' (~50 '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#1565c0','font-weight':'bold'}));
   svg.appendChild(txt(200,676,T.mamadNote,{'text-anchor':'middle','font-size':9,fill:'#1565c0'}));}
 
 var builders={phase0:buildPhase0,plan3:buildPlan3,plan4:buildPlan4};
@@ -371,12 +415,19 @@ Object.keys(legends).forEach(function(p){
   });
 });
 
+function switchTab(plan){
+  document.querySelectorAll('.plan-tabs button').forEach(function(b){b.classList.toggle('active',b.dataset.plan===plan);});
+  document.querySelectorAll('.plan-panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('panel-'+plan).classList.add('active');
+}
 document.querySelectorAll('.plan-tabs button').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    document.querySelectorAll('.plan-tabs button').forEach(function(b){b.classList.remove('active');});
-    document.querySelectorAll('.plan-panel').forEach(function(p){p.classList.remove('active');});
-    btn.classList.add('active');document.getElementById('panel-'+btn.dataset.plan).classList.add('active');
-  });
+  btn.addEventListener('click',function(){switchTab(btn.dataset.plan);});
+});
+document.addEventListener('keydown',function(e){
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  if(e.key==='1')switchTab('phase0');
+  if(e.key==='2')switchTab('plan3');
+  if(e.key==='3')switchTab('plan4');
 });
 document.querySelectorAll('.controls button').forEach(function(btn){
   btn.addEventListener('click',function(){
@@ -389,8 +440,8 @@ document.querySelectorAll('.controls button').forEach(function(btn){
       if(layer==='all'){g.style.opacity='1';return;}
       if(layer==='infra'&&infra.indexOf(id)>=0){g.style.opacity='1';return;}
       if(layer==='infra'){g.style.opacity=base.indexOf(id)>=0?'0.4':'0.15';return;}
-      if(layer==='u0'&&id.indexOf('unit0')===0){g.style.opacity='1';return;}
-      if(layer==='u1'&&id.indexOf('unit1')===0){g.style.opacity='1';return;}
+      if(layer==='u0'&&(id.indexOf('unit0')===0)){g.style.opacity='1';return;}
+      if(layer==='u1'&&(id.indexOf('unit1')===0)){g.style.opacity='1';return;}
       if(layer==='u2'&&id.indexOf('unit2')===0){g.style.opacity='1';return;}
       if(layer==='u3'&&id.indexOf('unit3')===0){g.style.opacity='1';return;}
       if(layer==='u4'&&id.indexOf('unit4')===0){g.style.opacity='1';return;}
