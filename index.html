@@ -1,0 +1,375 @@
+﻿<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Floor Plans</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI','David',Arial,sans-serif;background:#f5f5f0;color:#222;line-height:1.6}
+    header{background:#1a3a2a;color:#fff;padding:1.2rem 2rem}
+    header h1{font-size:1.35rem} header p{font-size:.88rem;opacity:.9;margin-top:.3rem}
+    .plan-tabs{display:flex;flex-wrap:wrap;gap:.5rem;padding:1rem 2rem 0;background:#e8f5e9}
+    .plan-tabs button{padding:.55rem 1.1rem;border:2px solid #81c784;background:#fff;border-radius:8px 8px 0 0;cursor:pointer;font-family:inherit;font-size:.9rem}
+    .plan-tabs button.active{background:#1a3a2a;color:#fff;border-color:#1a3a2a;font-weight:600}
+    main{max-width:1150px;margin:0 auto;padding:1rem 1.5rem 2rem}
+    .note-box{background:#fff8e1;border-right:4px solid #f9a825;padding:.9rem 1rem;border-radius:6px;margin-bottom:1rem;font-size:.88rem}
+    .note-box strong{color:#e65100}
+    .controls{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;align-items:center}
+    .controls button{padding:.45rem .9rem;border:2px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;font-size:.85rem;font-family:inherit}
+    .controls button.active{border-color:#1a3a2a;background:#e8f5e9;font-weight:600}
+    .plan-wrap{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:auto;padding:.8rem}
+    svg{display:block;max-width:100%;height:auto}
+    .legend{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1rem;font-size:.82rem}
+    .legend span{display:flex;align-items:center;gap:.35rem}
+    .swatch{width:14px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,.15)}
+    .info-panel{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin-top:1.2rem}
+    .card{background:#fff;border-radius:8px;padding:.9rem;border-right:4px solid #ccc;box-shadow:0 1px 5px rgba(0,0,0,.06)}
+    .card h3{font-size:.95rem;margin-bottom:.35rem} .card p{font-size:.82rem;color:#555}
+    .card.p0{border-color:#6a1b9a}.card.u1{border-color:#1565c0}.card.u2{border-color:#2e7d32}
+    .card.u3{border-color:#e65100}.card.u4{border-color:#00838f}
+    .plan-panel{display:none}.plan-panel.active{display:block}
+    footer{text-align:center;padding:1.2rem;font-size:.78rem;color:#888}
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="hdr-title"></h1>
+    <p id="hdr-sub"></p>
+  </header>
+  <div class="plan-tabs">
+    <button class="active" data-plan="phase0" id="tab-phase0"></button>
+    <button data-plan="plan3" id="tab-plan3"></button>
+    <button data-plan="plan4" id="tab-plan4"></button>
+  </div>
+  <main>
+    <div class="note-box" id="global-note"></div>
+    <div class="plan-panel active" id="panel-phase0">
+      <div class="controls">
+        <span id="lbl-show-p0"></span>
+        <button class="active" data-layer="all" data-plan="phase0" id="btn-all-p0"></button>
+        <button data-layer="u0" data-plan="phase0" id="btn-u0-p0"></button>
+        <button data-layer="infra" data-plan="phase0" id="btn-infra-p0"></button>
+      </div>
+      <div class="plan-wrap"><svg class="plan-svg" data-plan="phase0" viewBox="-60 -220 1020 1200" xmlns="http://www.w3.org/2000/svg"></svg></div>
+      <div class="legend" id="leg-phase0"></div>
+      <div class="info-panel"><div class="card p0"><h3 id="c0-h"></h3><p id="c0-p"></p></div></div>
+    </div>
+    <div class="plan-panel" id="panel-plan3">
+      <div class="controls">
+        <span id="lbl-show-p3"></span>
+        <button class="active" data-layer="all" data-plan="plan3" id="btn-all-p3"></button>
+        <button data-layer="u1" data-plan="plan3" id="btn-u1-p3"></button>
+        <button data-layer="u2" data-plan="plan3" id="btn-u2-p3"></button>
+        <button data-layer="u3" data-plan="plan3" id="btn-u3-p3"></button>
+        <button data-layer="infra" data-plan="plan3" id="btn-infra-p3"></button>
+      </div>
+      <div class="plan-wrap"><svg class="plan-svg" data-plan="plan3" viewBox="-60 -220 1020 1200" xmlns="http://www.w3.org/2000/svg"></svg></div>
+      <div class="legend" id="leg-plan3"></div>
+      <div class="info-panel">
+        <div class="card u1"><h3 id="c3-1h"></h3><p id="c3-1p"></p></div>
+        <div class="card u2"><h3 id="c3-2h"></h3><p id="c3-2p"></p></div>
+        <div class="card u3"><h3 id="c3-3h"></h3><p id="c3-3p"></p></div>
+      </div>
+    </div>
+    <div class="plan-panel" id="panel-plan4">
+      <div class="controls">
+        <span id="lbl-show-p4"></span>
+        <button class="active" data-layer="all" data-plan="plan4" id="btn-all-p4"></button>
+        <button data-layer="u1" data-plan="plan4" id="btn-u1-p4"></button>
+        <button data-layer="u2" data-plan="plan4" id="btn-u2-p4"></button>
+        <button data-layer="u3" data-plan="plan4" id="btn-u3-p4"></button>
+        <button data-layer="u4" data-plan="plan4" id="btn-u4-p4"></button>
+        <button data-layer="infra" data-plan="plan4" id="btn-infra-p4"></button>
+      </div>
+      <div class="plan-wrap"><svg class="plan-svg" data-plan="plan4" viewBox="-60 -220 1020 1200" xmlns="http://www.w3.org/2000/svg"></svg></div>
+      <div class="legend" id="leg-plan4"></div>
+      <div class="info-panel">
+        <div class="card u1"><h3 id="c4-ah"></h3><p id="c4-ap"></p></div>
+        <div class="card u2"><h3 id="c4-bh"></h3><p id="c4-bp"></p></div>
+        <div class="card u3"><h3 id="c4-ch"></h3><p id="c4-cp"></p></div>
+        <div class="card u4"><h3 id="c4-dh"></h3><p id="c4-dp"></p></div>
+      </div>
+    </div>
+  </main>
+  <footer id="ftr"></footer>
+<script>
+/* All Hebrew via Unicode escapes - works on any encoding */
+function u(){return String.fromCharCode.apply(null,arguments)}
+var H={
+  title:u(0x05EA,0x05D5,0x05DB,0x05E0,0x05D9,0x05D5,0x05EA,32,0x05D3,0x05D9,0x05D5,0x05E8,32,45,32,0x05E0,0x05DB,0x05E1,32,0x05D1,0x05E6,0x05D5,0x05E8,0x05EA,32,0x05DC),
+  sub:u(0x05E9,0x05D8,0x05D7,32,0x05D1,0x05E0,0x05D5,0x05D9,32,0x05D5,0x05D7,0x05E6,0x05E8,32,0x05E2,0x05DC,32,0x05DE,0x05D9,0x05E9,0x05D5,0x05E8,32,0x05E9,0x05D8,0x05D5,0x05D7),
+  note:u(0x05D4,0x05DE,0x05DE,0x05F4,0x05D3,32,0x05E9,0x05D9,0x05D5,0x05DA,32,0x05DC,0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05D0,0x05F3,0x2F,0x31,32,0x05D1,0x05D0,0x05D5,0x05EA,0x05D4,32,0x05D6,0x05D4,0x05D4,32,0x2014,32,0x05DE,0x05E1,0x05D2,0x05E8,32,0x05D0,0x05D3,0x05D5,0x05DD,32,0x05D1,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05D4,0x05E7,0x05D9,0x05D9,0x05DD,0x2E,32,0x05D1,0x05E0,0x05D9,0x05D9,0x05D5,0x05EA,32,0x05D1,0x05E8,0x05E6,0x05E4,0x05D4,32,0x05D4,0x05DF,32,0x05DE,0x05D1,0x05E0,0x05D9,0x05DD,32,0x05E0,0x05E4,0x05E8,0x05D3,0x05D9,0x05DD,0x2E),
+  show:u(0x05D4,0x05E6,0x05D2,0x3A), all:u(0x05D4,0x05DB,0x05DC),
+  infra:u(0x05E7,0x05D5,0x05DC,0x05D8,0x05DF,32,43,32,0x05D7,0x05DC,0x05D5,0x05E0,0x05D5,0x05EA),
+  tab0:u(0x05E9,0x05DC,0x05D1,32,0x05F3,0x05F3,0x30,32,45,32,0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05E8,0x05D0,0x05E9,0x05D5,0x05E0,0x05D4),
+  tab3:u(0x05EA,0x05D5,0x05DB,0x05E0,0x05D9,0x05EA,32,0x05F3,0x05F3,0x33,32,0x05D9,0x05D7,0x05D9,0x05D3,0x05D5,0x05EA),
+  tab4:u(0x05EA,0x05D5,0x05DB,0x05E0,0x05D9,0x05EA,32,0x05F3,0x05F3,0x34,32,0x05D9,0x05D7,0x05D9,0x05D3,0x05D5,0x05EA),
+  u0btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05E8,0x05D0,0x05E9,0x05D5,0x05E0,0x05D4),
+  u1btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x31), u2btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x32),
+  u3btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x33), u4btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05D3,0x05F3),
+  ftr:u(0x05EA,0x05D5,0x05DB,0x05E0,0x05D9,0x05EA,32,0x05E8,0x05D0,0x05E9,0x05D5,0x05E0,0x05D9,0x05EA,32,0x05E7,0x05E0,0x05D4,32,0x05DE,0x05D9,0x05D3,0x05D4,32,49,0x05DE,0x05F3,32,61,32,49,0x05DE,0x05F3),
+  c0h:u(0x05E9,0x05DC,0x05D1,32,0x05F3,0x05F3,0x30,32,45,32,0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05D0,0x05D7,0x05EA),
+  c0p:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05D0,0x05D7,0x05EA,32,0x05D1,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05D4,0x05E7,0x05D9,0x05D9,0x05DD,0x3A,32,0x05E1,0x05DC,0x05D5,0x05DF,0x2B,0x05DE,0x05D8,0x05D1,0x05D7,0x2B,0x05E4,0x05D8,0x05D9,0x05D5,0x2B,0x05D7,0x05D3,0x05E8,32,0x05E9,0x05D9,0x05E0,0x05D4,0x2B,0x05E9,0x05D9,0x05E8,0x05D5,0x05EA,0x05D9,0x05DD,0x2B,0x05DE,0x05DE,0x05F4,0x05D3,32,0x05E0,0x05E2,0x05D5,0x05DC,0x05D9,0x05DD,0x2E,32,0x05D4,0x05DE,0x05DE,0x05F4,0x05D3,32,0x05DE,0x05E1,0x05D5,0x05DE,0x05DF,32,0x05D1,0x05D0,0x05D3,0x05D5,0x05DD,32,0x2014,32,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05E0,0x05E2,0x05D5,0x05DC,0x05D4,0x2E),
+  c31h:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x31,32,45,32,0x05DE,0x05E9,0x05E4,0x05D7,0x05D4,0x2B,0x05DE,0x05DE,0x05F4,0x05D3), c31p:u(0x05D1,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05D4,0x05E7,0x05D9,0x05D9,0x05DD,0x3A,32,0x05E1,0x05DC,0x05D5,0x05DF,0x2B,0x05E4,0x05D8,0x05D9,0x05D5,0x2B,0x05DE,0x05D8,0x05D1,0x05D7,0x2B,0x05E9,0x05D9,0x05E8,0x05D5,0x05EA,0x05D9,0x05DD,0x2B,0x05DE,0x05DE,0x05F4,0x05D3,32,0x05E0,0x05E2,0x05D5,0x05DC,0x05D9,0x05DD,0x2E,32,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05E0,0x05E2,0x05D5,0x05DC,0x05D4,0x2E),
+  c32h:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x32,32,45,32,0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05D1,0x05DE,0x05D1,0x05E0,0x05D4), c32p:u(0x05D7,0x05DC,0x05E7,32,0x05E2,0x05DC,0x05D9,0x05D5,0x05DF,32,0x05D1,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05D4,0x05E7,0x05D9,0x05D9,0x05DD,0x2E,32,0x05E7,0x05D9,0x05E8,32,0x05D4,0x05E4,0x05E8,0x05D3,0x05D4,32,0x05E0,0x05E8,0x05D0,0x05D4,32,0x05D1,0x05EA,0x05D5,0x05DA,32,0x05D4,0x05DE,0x05D1,0x05E0,0x05D4,0x2E,32,0x05DB,0x05E0,0x05D9,0x05E1,0x05D4,32,0x05DE,0x05D7,0x05D6,0x05D9,0x05EA),
+  c33h:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x33,32,45,32,0x05D4,0x05E9,0x05DB,0x05E8,0x05D4), c33p:u(0x05D7,0x05D3,0x05E8,32,0x05E2,0x05DC,0x05D9,0x05D5,0x05DF,32,0x05DE,0x05E4,0x05D5,0x05E6,0x05DC,0x2B,0x05DE,0x05D8,0x05D1,0x05D7,0x05D5,0x05DF,0x2B,0x05E9,0x05D9,0x05E8,0x05D5,0x05EA,0x05D9,0x05DD,32,0x05D7,0x05D3,0x05E9,0x2E,32,0x05DB,0x05E0,0x05D9,0x05E1,0x05D4,32,0x05DE,0x05D6,0x05E0,0x05D1),
+  c4ah:u(0x05D0,0x05F3,32,45,32,0x05DE,0x05E9,0x05E4,0x05D7,0x05D4,0x2B,0x05DE,0x05DE,0x05F4,0x05D3), c4ap:u(0x05D1,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05D4,0x05E7,0x05D9,0x05D9,0x05DD,0x3A,32,0x05E1,0x05DC,0x05D5,0x05DF,0x2B,0x05E4,0x05D8,0x05D9,0x05D5,0x2B,0x05DE,0x05D8,0x05D1,0x05D7,0x2B,0x05E9,0x05D9,0x05E8,0x05D5,0x05EA,0x05D9,0x05DD,0x2B,0x05DE,0x05DE,0x05F4,0x05D3,32,0x05E0,0x05E2,0x05D5,0x05DC,0x05D9,0x05DD,0x2E,32,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05E0,0x05E2,0x05D5,0x05DC,0x05D4,0x2E),
+  c4bh:u(0x05D1,0x05F3,32,45,32,0x05E1,0x05D8,0x05D5,0x05D3,0x05D9,0x05D5,32,0x05D1,0x05DE,0x05D1,0x05E0,0x05D4), c4bp:u(0x05D7,0x05DC,0x05E7,32,0x05E2,0x05DC,0x05D9,0x05D5,0x05DF,32,0x05D1,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05D4,0x05E7,0x05D9,0x05D9,0x05DD,0x2E,32,0x05E7,0x05D9,0x05E8,32,0x05D4,0x05E4,0x05E8,0x05D3,0x05D4,32,0x05E0,0x05E8,0x05D0,0x05D4,32,0x05D1,0x05EA,0x05D5,0x05DA,32,0x05D4,0x05DE,0x05D1,0x05E0,0x05D4,0x2E,32,0x05DB,0x05E0,0x05D9,0x05E1,0x05D4,32,0x05DE,0x05D6,0x05E0,0x05D1),
+  c4ch:u(0x05D2,0x05F3,32,45,32,0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05DE,0x05E2,0x05E8,0x05D1,32,0x05E8,0x05E6,0x05D5,0x05E2,0x05D4), c4cp:u(0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05D7,0x05D3,0x05E9,0x05D4,0x2E,32,0x05DB,0x05E0,0x05D9,0x05E1,0x05D4,32,0x05DE,0x05D7,0x05D6,0x05D9,0x05EA),
+  c4dh:u(0x05D3,0x05F3,32,45,32,0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05DE,0x05D6,0x05E8,0x05D7,32,0x05E8,0x05E6,0x05D5,0x05E2,0x05D4), c4dp:u(0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05D7,0x05D3,0x05E9,0x05D4,0x2E,32,0x05DB,0x05E0,0x05D9,0x05E1,0x05D4,32,0x05DE,0x05D7,0x05D6,0x05D9,0x05EA)
+};
+function setUI(){
+  document.title=H.title;
+  document.getElementById('hdr-title').textContent=H.title;
+  document.getElementById('hdr-sub').textContent=H.sub;
+  document.getElementById('global-note').innerHTML='<strong>'+H.note.split(':')[0]+':</strong> '+H.note.split(':').slice(1).join(':');
+  document.getElementById('tab-phase0').textContent=H.tab0;
+  document.getElementById('tab-plan3').textContent=H.tab3;
+  document.getElementById('tab-plan4').textContent=H.tab4;
+  document.getElementById('ftr').textContent=H.ftr;
+  ['p0','p3','p4'].forEach(function(p){var el=document.getElementById('lbl-show-'+p);if(el)el.textContent=H.show;});
+  var btns={all:H.all,infra:H.infra,u0:H.u0btn,u1:H.u1btn,u2:H.u2btn,u3:H.u3btn,u4:H.u4btn};
+  document.querySelectorAll('.controls button').forEach(function(b){
+    var l=b.dataset.layer;if(btns[l])b.textContent=btns[l];
+  });
+  document.getElementById('c0-h').textContent=H.c0h;
+  document.getElementById('c0-p').textContent=H.c0p;
+  document.getElementById('c3-1h').textContent=H.c31h;document.getElementById('c3-1p').textContent=H.c31p;
+  document.getElementById('c3-2h').textContent=H.c32h;document.getElementById('c3-2p').textContent=H.c32p;
+  document.getElementById('c3-3h').textContent=H.c33h;document.getElementById('c3-3p').textContent=H.c33p;
+  document.getElementById('c4-ah').textContent=H.c4ah;document.getElementById('c4-ap').textContent=H.c4ap;
+  document.getElementById('c4-bh').textContent=H.c4bh;document.getElementById('c4-bp').textContent=H.c4bp;
+  document.getElementById('c4-ch').textContent=H.c4ch;document.getElementById('c4-cp').textContent=H.c4cp;
+  document.getElementById('c4-dh').textContent=H.c4dh;document.getElementById('c4-dp').textContent=H.c4dp;
+}
+setUI();
+
+var T={
+  plot:u(0x05DE,0x05EA,0x05D7,0x05DD),
+  yardTop:u(0x05E8,0x05E6,0x05D5,0x05E2,0x05D4,32,0x05E2,0x05DC,0x05D9,0x05D5,0x05E0,0x05D4,32,52,0x2E,0x38,32,0x05DE,0x05F3),
+  yardSide:u(0x05D6,0x05E0,0x05D1,32,0x05DE,0x05DC,0x05D0,32,0x05E2,0x05D3,32,0x05D2,0x05D3,0x05E8),
+  yardSideSub:u(0x05DE,0x05E1,0x05EA,0x05D9,0x05D9,0x05DD,32,0x05D1,0x05EA,0x05D7,0x05D9,0x05EA,32,0x05D4,0x05DE,0x05DE,0x05F4,0x05D3),
+  path:u(0x05E9,0x05D1,0x05D9,0x05DC,32,49,0x2E,0x32,32,0x05DE,0x05F3),
+  salon:u(0x05E1,0x05DC,0x05D5,0x05DF), patio:u(0x05E4,0x05D8,0x05D9,0x05D5),
+  bed:u(0x05D7,0x05D3,0x05E8,0x05E9,0x05D9,0x05E0,0x05D4), kitchen:u(0x05DE,0x05D8,0x05D1,0x05D7),
+  bath:u(0x05E9,0x05D9,0x05E8,0x05D5,0x05EA,0x05D9,0x05DD),
+  mamad:u(0x05DE,0x05DE,0x05F4,0x05D3), mamadLock:u(0x05DC,0x05D0,0x05E0,0x05D9,0x05EA,0x05DF,0x05DC,0x05E9,0x05D9,0x05E0,0x05D5,0x05D9),
+  stack:u(0x05E7,0x05D5,0x05DC,0x05D8,0x05DF),
+  winTop:u(0x05D0,0x05D5,0x05D5,0x05D9,0x05E8,32,0x05E8,0x05E6,0x05D5,0x05E2,0x05D4),
+  winSide:u(0x05D0,0x05D5,0x05D5,0x05D9,0x05E8,32,0x05D6,0x05E0,0x05D1),
+  noWin:u(0x05DC,0x05DC,0x05D0,32,0x05D7,0x05DC,0x05D5,0x05DF,32,0x05DC,0x05D7,0x05E6,0x05E8),
+  entryRear:u(0x05DB,0x05E0,0x05D9,0x05E1,0x05D4,32,0x05E2,0x05D5,0x05E8,0x05E3),
+  entryFront:u(0x05DB,0x05E0,0x05D9,0x05E1,0x05D4,32,0x05D7,0x05D6,0x05D9,0x05EA),
+  entrySide:u(0x05DB,0x05E0,0x05D9,0x05E1,0x05D4,32,0x05D6,0x05E0,0x05D1),
+  livingKit:u(0x05E1,0x05DC,0x05D5,0x05DF,43,0x05DE,0x05D8,0x05D1,0x05D7),
+  wcNew:u(0x05E9,0x05D9,0x05E8,0x05D5,0x05EA,0x05D9,0x05DD,32,0x05D7,0x05D3,0x05E9),
+  kitSmall:u(0x05DE,0x05D8,0x05D1,0x05D7,0x05D5,0x05DF),
+  u1t:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,49), u2t:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,50),
+  u3t:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,51), u0t:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05E8,0x05D0,0x05E9,0x05D5,0x05E0,0x05D4),
+  At:u(0x05D0,0x05F3), Bt:u(0x05D1,0x05F3), Ct:u(0x05D2,0x05F3), Dt:u(0x05D3,0x05F3),
+  sqm:u(0x05DE,0x05F4,0x05E8), rear:u(0x05E2,0x05D5,0x05E8,0x05E3),
+  branch2:u(0x05E1,0x05E0,0x05D9,0x05E3,32,0x05D9,0x05D7,0x05F3,0x05F3,0x32),
+  branch3:u(0x05E1,0x05E0,0x05D9,0x05E3,32,0x05D9,0x05D7,0x05F3,0x05F3,0x33),
+  builtExisting:u(0x05DE,0x05D1,0x05E0,0x05D4,32,0x05E7,0x05D9,0x05D9,0x05DD),
+  newInYard:u(0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05D7,0x05D3,0x05E9,0x05D4,32,0x05D1,0x05D7,0x05E6,0x05E8),
+  mamadNote:u(0x05D7,0x05DC,0x05E7,32,0x05DE,0x05DE,0x05F4,0x05D3,32,45,32,0x05DC,0x05D0,0x05E0,0x05D9,0x05EA,0x05DF,0x05DC,0x05E9,0x05D9,0x05E0,0x05D5,0x05D9)
+};
+var G={BW:680,BD:740,MW:180,MD:200,MX:500,MY:740,YW:290,YX:680,YT:-200,TW:990,TH:480,PATH:120};
+G.YD_END=G.MY+G.MD;
+G.YD=G.YD_END-G.YT;
+function el(tag,attrs,children){var e=document.createElementNS('http://www.w3.org/2000/svg',tag);
+  if(attrs)Object.keys(attrs).forEach(function(k){if(k==='text')e.textContent=attrs[k];else e.setAttribute(k,attrs[k]);});
+  (children||[]).forEach(function(c){e.appendChild(c);});return e;}
+function rect(x,y,w,h,fill,stroke,sw,ex){var a={x:x,y:y,width:w,height:h,fill:fill||'none'};if(stroke){a.stroke=stroke;a['stroke-width']=sw||2;}if(ex)Object.assign(a,ex);return el('rect',a);}
+function txt(x,y,s,opts){var a={x:x,y:y,text:s};if(opts)Object.keys(opts).forEach(function(k){a[k]=opts[k];});return el('text',a);}
+function win(x1,y1,x2,y2){return el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'#0288d1','stroke-width':10});}
+function drawBase(svg){
+  svg.appendChild(el('defs',null,[el('pattern',{id:'grid',width:'50',height:'50',patternUnits:'userSpaceOnUse'},[el('path',{d:'M 50 0 L 0 0 0 50',fill:'none',stroke:'#e8e8e8','stroke-width':'0.5'})])]));
+  svg.appendChild(rect(-20,G.YT,G.TW,G.YD,'none','#795548',3,{'stroke-dasharray':'12 6'}));
+  svg.appendChild(txt(480,G.YT+G.YD+25,T.plot,{'text-anchor':'middle',fill:'#795548','font-size':12}));
+  svg.appendChild(el('g',{id:'yard-top'},[rect(-20,G.YT,G.TW,G.TH,'#e8f5e9','#66bb6a'),txt(480,-60,T.yardTop,{'text-anchor':'middle','font-size':14,fill:'#2e7d32','font-weight':'bold'})]));
+  svg.appendChild(el('g',{id:'yard-side'},[rect(G.YX,G.YT,G.YW,G.YD,'#f1f8e9','#81c784'),
+    txt(825,G.YT+G.YD/2,T.yardSide,{'text-anchor':'middle','font-size':13,fill:'#2e7d32','font-weight':'bold',transform:'rotate(90 825 '+(G.YT+G.YD/2)+')'}),
+    txt(825,G.YT+G.YD*0.72,T.yardSideSub,{'text-anchor':'middle','font-size':10,fill:'#558b2f',transform:'rotate(90 825 '+(G.YT+G.YD*0.72)+')'}),
+    rect(G.YX,G.YT,G.PATH,G.YD,'#fff9c4','#fbc02d',1.5,{'stroke-dasharray':'6 4'}),
+    txt(740,G.YT+G.YD/2,T.path,{'text-anchor':'middle','font-size':10,fill:'#f57f17',transform:'rotate(90 740 '+(G.YT+G.YD/2)+')'})]));
+  svg.appendChild(rect(0,0,G.BW,G.BD,'url(#grid)'));
+  svg.appendChild(el('path',{d:'M 0 0 H '+G.BW+' V '+G.BD+' H '+G.MX+' V '+(G.MY+G.MD)+' H 0 Z',fill:'none',stroke:'#1a1a1a','stroke-width':8}));
+  svg.appendChild(txt(340,720,T.builtExisting,{'text-anchor':'middle','font-size':11,fill:'#555','font-weight':'bold'}));
+}
+function drawMamadInUnit(svg,prefix,fill,stroke,fc){
+  var id=prefix+'-mamad';
+  svg.appendChild(el('g',{id:id},[
+    rect(G.MX,G.MY,G.MW,G.MD,fill,stroke,2),
+    rect(G.MX,G.MY,G.MW,G.MD,'none','#b71c1c',3,{'stroke-dasharray':'8 4'}),
+    txt(G.MX+G.MW/2,G.MY+65,T.mamad,{'text-anchor':'middle','font-size':13,fill:fc,'font-weight':'bold'}),
+    txt(G.MX+G.MW/2,G.MY+88,T.mamadLock,{'text-anchor':'middle','font-size':9,fill:'#b71c1c'})
+  ]));
+}
+function drawRooms(svg,cfg){cfg.rooms.forEach(function(r){var g=el('g',{id:r.id});
+  if(r.fill)g.appendChild(rect(r.x,r.y,r.w,r.h,r.fill,r.stroke,r.sw||2,r.extra));
+  if(r.label)g.appendChild(txt(r.x+r.w/2,r.y+r.h/2,r.label,{'text-anchor':'middle','font-size':r.fs||12,fill:r.fc||'#333','font-weight':r.bold?'bold':'normal'}));
+  if(r.sub)g.appendChild(txt(r.x+r.w/2,r.y+r.h/2+16,r.sub,{'text-anchor':'middle','font-size':10,fill:'#666'}));
+  svg.appendChild(g);});}
+function drawWindows(svg){
+  var g=el('g',{id:'windows'});
+  g.appendChild(win(200,0,280,0));g.appendChild(win(400,0,580,0));
+  g.appendChild(txt(240,-12,T.winTop,{'font-size':9,fill:'#0277bd'}));
+  g.appendChild(win(G.BW,80,G.BW,200));g.appendChild(win(G.MX+G.MW,G.MY+60,G.MX+G.MW,G.MY+140));
+  g.appendChild(txt(690,250,T.winSide,{'font-size':9,fill:'#0277bd'}));
+  g.appendChild(el('path',{d:'M 150 100 L 150 200',fill:'none',stroke:'#0277bd','stroke-width':2,'stroke-dasharray':'4 3'}));
+  g.appendChild(txt(165,155,T.patio+' \u2192 '+T.salon,{'font-size':8,fill:'#0277bd'}));
+  g.appendChild(rect(80,G.BD-5,140,8,'#9e9e9e','#616161',1));
+  g.appendChild(txt(150,G.BD+18,T.noWin+' ('+T.rear+')',{'text-anchor':'middle','font-size':9,fill:'#757575'}));
+  svg.appendChild(g);
+}
+function drawStack(svg,branches){var g=el('g',{id:'infra'});
+  g.appendChild(rect(500,250,180,220,'none','#c62828',3,{'stroke-dasharray':'10 5'}));
+  g.appendChild(el('circle',{cx:590,cy:360,r:20,fill:'#c62828'}));
+  g.appendChild(txt(590,365,T.stack,{'text-anchor':'middle','font-size':11,fill:'#fff','font-weight':'bold'}));
+  (branches||[]).forEach(function(b){g.appendChild(el('line',{x1:b.x1,y1:b.y1,x2:b.x2,y2:b.y2,stroke:'#c62828','stroke-width':2,'stroke-dasharray':'4 3'}));
+    if(b.lbl)g.appendChild(txt(b.lx,b.ly,b.lbl,{'font-size':8,fill:'#c62828'}));});svg.appendChild(g);}
+function drawPartitions(svg,lines){var g=el('g',{id:'walls-new'});
+  (lines||[]).forEach(function(l){g.appendChild(el('line',{x1:l.x1,y1:l.y1,x2:l.x2,y2:l.y2,stroke:'#1a1a1a','stroke-width':l.w||4}));});svg.appendChild(g);}
+function drawEntries(svg,entries){var g=el('g',{id:'entrances'});
+  entries.forEach(function(e){g.appendChild(el('circle',{cx:e.x,cy:e.y,r:12,fill:e.color}));
+    g.appendChild(txt(e.x,e.y+4,e.n,{'text-anchor':'middle','font-size':8,fill:'#fff','font-weight':'bold'}));
+    g.appendChild(txt(e.lx,e.ly,e.lbl,{'font-size':10,fill:e.color,'font-weight':'bold'}));});svg.appendChild(g);}
+
+function buildPhase0(svg){drawBase(svg);
+  svg.appendChild(el('g',{id:'unit0'},[
+    rect(0,0,680,740,'rgba(106,27,154,0.22)','#6a1b9a',3),
+    el('line',{x1:300,y1:0,x2:300,y2:740,stroke:'#6a1b9a','stroke-width':1,'stroke-dasharray':'6 4',opacity:'0.45'}),
+    el('line',{x1:300,y1:250,x2:500,y2:250,stroke:'#6a1b9a','stroke-width':1,'stroke-dasharray':'6 4',opacity:'0.45'}),
+    el('line',{x1:300,y1:470,x2:500,y2:470,stroke:'#6a1b9a','stroke-width':1,'stroke-dasharray':'6 4',opacity:'0.45'}),
+    el('line',{x1:0,y1:100,x2:300,y2:100,stroke:'#6a1b9a','stroke-width':1,'stroke-dasharray':'6 4',opacity:'0.45'}),
+    txt(150,55,T.patio,{'text-anchor':'middle','font-size':12,fill:'#4a148c','font-weight':'bold'}),
+    txt(150,420,T.salon,{'text-anchor':'middle','font-size':13,fill:'#4a148c','font-weight':'bold'}),
+    txt(150,438,'~20 '+T.sqm,{'text-anchor':'middle','font-size':9,fill:'#666'}),
+    txt(490,125,T.bed,{'text-anchor':'middle','font-size':12,fill:'#4a148c','font-weight':'bold'}),
+    txt(490,143,'~13 '+T.sqm,{'text-anchor':'middle','font-size':9,fill:'#666'}),
+    txt(400,360,T.kitchen,{'text-anchor':'middle','font-size':11,fill:'#4a148c'}),
+    txt(400,560,T.bath,{'text-anchor':'middle','font-size':11,fill:'#4a148c'})
+  ]));
+  drawMamadInUnit(svg,'unit0','rgba(106,27,154,0.3)','#6a1b9a','#4a148c');
+drawWindows(svg);drawStack(svg,[]);drawEntries(svg,[{x:150,y:G.BD+8,n:'1',color:'#6a1b9a',lx:150,ly:G.BD+35,lbl:T.entryRear}]);
+svg.appendChild(txt(300,660,T.u0t+' (~48 '+T.sqm+')',{'text-anchor':'middle','font-size':14,fill:'#6a1b9a','font-weight':'bold'}));
+svg.appendChild(txt(300,678,T.mamadNote,{'text-anchor':'middle','font-size':9,fill:'#6a1b9a'}));}
+
+function buildPlan3(svg){drawBase(svg);
+  svg.appendChild(el('line',{x1:-20,y1:0,x2:970,y2:0,stroke:'#795548','stroke-width':2,'stroke-dasharray':'10 6'}));
+  svg.appendChild(txt(900,-15,T.newInYard,{'font-size':9,fill:'#795548'}));
+  svg.appendChild(el('g',{id:'unit3'},[rect(80,-170,560,400,'#ffe0b2','#e65100',4),
+    txt(360,-120,T.u2t+' (~42 '+T.sqm+')',{'text-anchor':'middle','font-size':14,fill:'#bf360c','font-weight':'bold'}),
+    rect(100,-90,280,190,'#ffcc80','#e65100',1.5),txt(240,5,T.livingKit,{'text-anchor':'middle','font-size':12,'font-weight':'bold'}),
+    rect(400,-90,220,190,'#ffab91','#e65100',1.5),txt(510,5,T.bed,{'text-anchor':'middle','font-size':12,'font-weight':'bold'}),
+    rect(100,110,110,90,'#ffab91','#e65100',1.5),txt(155,160,T.bath,{'text-anchor':'middle','font-size':10})]));
+  drawRooms(svg,{rooms:[
+    {id:'unit1',x:0,y:100,w:300,h:640,fill:'rgba(21,101,192,0.2)',stroke:'#1565c0',label:T.salon,bold:true,fc:'#0d47a1'},
+    {id:'unit1-p',x:0,y:0,w:300,h:100,fill:'rgba(21,101,192,0.3)',stroke:'#1565c0',label:T.patio,bold:true,fc:'#0d47a1'},
+    {id:'unit1-bed',x:300,y:0,w:200,h:250,fill:'rgba(21,101,192,0.15)',stroke:'#1565c0',label:T.bed,fc:'#0d47a1'},
+    {id:'unit1-kit',x:300,y:250,w:200,h:220,fill:'rgba(21,101,192,0.12)',stroke:'#1565c0',label:T.kitchen},
+    {id:'unit1-bath',x:300,y:470,w:200,h:180,fill:'rgba(21,101,192,0.12)',stroke:'#1565c0',label:T.bath},
+    {id:'unit2-base',x:500,y:0,w:180,h:470,fill:'rgba(46,125,50,0.08)',stroke:'none'},
+    {id:'unit2',x:500,y:0,w:180,h:250,fill:'rgba(46,125,50,0.25)',stroke:'#2e7d32',sw:2,label:T.livingKit,sub:T.kitSmall,bold:true,fc:'#1b5e20'},
+    {id:'unit2-wc',x:500,y:250,w:80,h:100,fill:'rgba(46,125,50,0.18)',stroke:'#2e7d32',label:T.wcNew,fs:9}
+  ]});drawMamadInUnit(svg,'unit1','rgba(21,101,192,0.25)','#1565c0','#0d47a1');
+  drawWindows(svg);
+  drawStack(svg,[{x1:590,y1:360,x2:510,y2:300,lbl:T.branch2,lx:530,ly:320},{x1:590,y1:340,x2:360,y2:-50,lbl:T.branch3,lx:470,ly:120}]);
+  drawPartitions(svg,[{x1:500,y1:0,x2:500,y2:740,w:5},{x1:500,y1:350,x2:680,y2:350,w:4}]);
+  drawEntries(svg,[{x:150,y:G.BD+8,n:'1',color:'#1565c0',lx:150,ly:G.BD+35,lbl:T.entryRear},
+    {x:360,y:-185,n:'2',color:'#e65100',lx:360,ly:-210,lbl:T.entryFront},{x:676,y:200,n:'3',color:'#2e7d32',lx:700,ly:200,lbl:T.entrySide}]);
+  svg.appendChild(txt(200,660,T.u1t+' (~48 '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#1565c0','font-weight':'bold'}));
+  svg.appendChild(txt(200,676,T.mamadNote,{'text-anchor':'middle','font-size':9,fill:'#1565c0'}));}
+
+function buildPlan4(svg){drawBase(svg);
+  svg.appendChild(el('line',{x1:-20,y1:0,x2:970,y2:0,stroke:'#795548','stroke-width':2,'stroke-dasharray':'10 6'}));
+  svg.appendChild(txt(900,-15,T.newInYard,{'font-size':9,fill:'#795548'}));
+  svg.appendChild(el('g',{id:'unit3'},[rect(80,-170,270,400,'#ffe0b2','#e65100',3),
+    txt(215,-120,T.Ct+' (~40 '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#bf360c','font-weight':'bold'}),
+    txt(215,30,T.livingKit,{'text-anchor':'middle','font-size':11})]));
+  svg.appendChild(el('g',{id:'unit4'},[rect(370,-170,270,400,'#b2ebf2','#00838f',3),
+    txt(505,-120,T.Dt+' (~38 '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#006064','font-weight':'bold'}),
+    txt(505,30,T.livingKit,{'text-anchor':'middle','font-size':11})]));
+  drawRooms(svg,{rooms:[
+    {id:'unit1',x:0,y:100,w:300,h:640,fill:'rgba(21,101,192,0.2)',stroke:'#1565c0',label:T.salon,bold:true,fc:'#0d47a1'},
+    {id:'unit1-p',x:0,y:0,w:300,h:100,fill:'rgba(21,101,192,0.3)',stroke:'#1565c0',label:T.patio},
+    {id:'unit1-kit',x:300,y:250,w:200,h:220,fill:'rgba(21,101,192,0.12)',stroke:'#1565c0',label:T.kitchen},
+    {id:'unit1-bath',x:300,y:470,w:200,h:180,fill:'rgba(21,101,192,0.12)',stroke:'#1565c0',label:T.bath},
+    {id:'unit2-base',x:500,y:0,w:180,h:470,fill:'rgba(46,125,50,0.08)',stroke:'none'},
+    {id:'unit2',x:500,y:0,w:180,h:250,fill:'rgba(46,125,50,0.25)',stroke:'#2e7d32',sw:2,label:T.Bt,sub:'~28 '+T.sqm,bold:true,fc:'#1b5e20'},
+    {id:'unit2-wc',x:500,y:250,w:80,h:100,fill:'rgba(46,125,50,0.18)',stroke:'#2e7d32',label:T.wcNew,fs:9}
+  ]});drawMamadInUnit(svg,'unit1','rgba(21,101,192,0.25)','#1565c0','#0d47a1');
+  drawWindows(svg);
+  drawStack(svg,[{x1:590,y1:360,x2:530,y2:300,lbl:'B',lx:545,ly:315},{x1:590,y1:340,x2:215,y2:-60,lbl:'C',lx:400,ly:100},{x1:590,y1:330,x2:505,y2:-60,lbl:'D',lx:540,ly:100}]);
+  drawPartitions(svg,[{x1:500,y1:0,x2:500,y2:740,w:5},{x1:350,y1:-170,x2:350,y2:230,w:3}]);
+  drawEntries(svg,[{x:150,y:G.BD+8,n:'A',color:'#1565c0',lx:150,ly:G.BD+35,lbl:T.entryRear},
+    {x:676,y:200,n:'B',color:'#2e7d32',lx:700,ly:200,lbl:T.entrySide},{x:215,y:-185,n:'C',color:'#e65100',lx:215,ly:-210,lbl:T.entryFront},{x:505,y:-185,n:'D',color:'#00838f',lx:505,ly:-210,lbl:T.entryFront}]);
+  svg.appendChild(txt(200,660,T.At+' (~38 '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#1565c0','font-weight':'bold'}));
+  svg.appendChild(txt(200,676,T.mamadNote,{'text-anchor':'middle','font-size':9,fill:'#1565c0'}));}
+
+var builders={phase0:buildPhase0,plan3:buildPlan3,plan4:buildPlan4};
+document.querySelectorAll('.plan-svg').forEach(function(s){builders[s.dataset.plan](s);});
+
+var legends={
+  phase0:[[0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05D0,0x05D7,0x05EA,32,43,32,0x05DE,0x05DE,0x05F4,0x05D3,'#6a1b9a'],
+          [0x05DE,0x05DE,0x05F4,0x05D3,32,40,0x05D7,0x05DC,0x05E7,32,0x05DE,0x05DE,0x05F4,0x05D3,32,45,32,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05E0,0x05E2,0x05D5,0x05DC,'#6a1b9a','#b71c1c'],
+          [0x05DE,0x05D1,0x05E0,0x05DF,32,0x05E7,0x05D9,0x05D9,0x05DD,'#1a1a1a'],
+          [0x05D7,0x05DC,0x05D5,0x05DF,32,0x05DC,0x05D7,0x05E6,0x05E8,'#0288d1'],
+          [0x05D7,0x05E6,0x05E8,'#e8f5e9']],
+  plan3:[[0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,49,32,43,32,0x05DE,0x05DE,0x05F4,0x05D3,'#1565c0'],
+         [0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,50,32,0x05D1,0x05DE,0x05D1,0x05E0,0x05D4,'#2e7d32'],
+         [0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,51,32,0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05D7,0x05D3,0x05E9,0x05D4,'#e65100'],
+         [0x05DE,0x05DE,0x05F4,0x05D3,32,40,0x05D7,0x05DC,0x05E7,32,0x05D9,0x05D7,0x05F3,0x05F3,0x31,32,45,32,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05E0,0x05E2,0x05D5,0x05DC,'#1565c0','#b71c1c'],
+         [0x05DE,0x05D1,0x05E0,0x05DF,32,0x05E7,0x05D9,0x05D9,0x05DD,'#1a1a1a'],[0x05D7,0x05E6,0x05E8,'#e8f5e9']],
+  plan4:[[0x05D0,0x05F3,32,43,32,0x05DE,0x05DE,0x05F4,0x05D3,'#1565c0'],
+         [0x05D1,0x05F3,32,0x05D1,0x05DE,0x05D1,0x05E0,0x05D4,'#2e7d32'],
+         [0x05D2,0x05F3,0x2C,0x05D3,0x05F3,32,0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05D7,0x05D3,0x05E9,0x05D4,'#e65100'],
+         [0x05DE,0x05DE,0x05F4,0x05D3,32,40,0x05D7,0x05DC,0x05E7,32,0x05D0,0x05F3,32,45,32,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05E0,0x05E2,0x05D5,0x05DC,'#1565c0','#b71c1c'],
+         [0x05DE,0x05D1,0x05E0,0x05DF,32,0x05E7,0x05D9,0x05D9,0x05DD,'#1a1a1a']]
+};
+Object.keys(legends).forEach(function(p){
+  var leg=document.getElementById('leg-'+p);if(!leg)return;
+  legends[p].forEach(function(item){
+    var border=item.length>2&&typeof item[item.length-1]==='string'&&item[item.length-1].charAt(0)==='#'&&item[item.length-2].charAt(0)==='#'?item.pop():null;
+    var color=item.pop();var label=u.apply(null,item);
+    var sp=document.createElement('span');
+    var swStyle=border?'background:'+color+';box-shadow:inset 0 0 0 2px '+border:'background:'+color;
+    sp.innerHTML='<span class="swatch" style="'+swStyle+'"></span> '+label;
+    leg.appendChild(sp);
+  });
+});
+
+document.querySelectorAll('.plan-tabs button').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.plan-tabs button').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.plan-panel').forEach(function(p){p.classList.remove('active');});
+    btn.classList.add('active');document.getElementById('panel-'+btn.dataset.plan).classList.add('active');
+  });
+});
+document.querySelectorAll('.controls button').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var plan=btn.dataset.plan,panel=document.getElementById('panel-'+plan);
+    panel.querySelectorAll('.controls button').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');var layer=btn.dataset.layer,svg=panel.querySelector('.plan-svg');
+    var infra=['infra','entrances','windows'],base=['yard-top','yard-side'];
+    svg.querySelectorAll('g[id]').forEach(function(g){
+      var id=g.id;
+      if(layer==='all'){g.style.opacity='1';return;}
+      if(layer==='infra'&&infra.indexOf(id)>=0){g.style.opacity='1';return;}
+      if(layer==='infra'){g.style.opacity=base.indexOf(id)>=0?'0.4':'0.15';return;}
+      if(layer==='u0'&&id.indexOf('unit0')===0){g.style.opacity='1';return;}
+      if(layer==='u1'&&id.indexOf('unit1')===0){g.style.opacity='1';return;}
+      if(layer==='u2'&&id.indexOf('unit2')===0){g.style.opacity='1';return;}
+      if(layer==='u3'&&id.indexOf('unit3')===0){g.style.opacity='1';return;}
+      if(layer==='u4'&&id.indexOf('unit4')===0){g.style.opacity='1';return;}
+      if(base.indexOf(id)>=0||infra.indexOf(id)>=0||id==='walls-new'){g.style.opacity='0.35';}
+      else{g.style.opacity='0.1';}
+    });
+  });
+});
+</script>
+</body>
+</html>
