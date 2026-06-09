@@ -333,7 +333,7 @@ var legends={
 Object.keys(legends).forEach(function(p){
   var leg=document.getElementById('leg-'+p);if(!leg)return;
   legends[p].forEach(function(item){
-    var border=item.length>2&&typeof item[item.length-1]==='string'&&item[item.length-1].charAt(0)==='#'&&item[item.length-2].charAt(0)==='#'?item.pop():null;
+    var border=item.length>2&&typeof item[item.length-1]==='string'&&item[item.length-1].charAt(0)==='#'&&typeof item[item.length-2]==='string'&&item[item.length-2].charAt(0)==='#'?item.pop():null;
     var color=item.pop();var label=u.apply(null,item);
     var sp=document.createElement('span');
     var swStyle=border?'background:'+color+';box-shadow:inset 0 0 0 2px '+border:'background:'+color;
