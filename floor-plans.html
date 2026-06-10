@@ -123,7 +123,7 @@ var H={
   u1btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x31), u2btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x32),
   u3btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x33), u4btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05D3,0x05F3),
   ftr:u(0x05EA,0x05D5,0x05DB,0x05E0,0x05D9,0x05EA,32,0x05E8,0x05D0,0x05E9,0x05D5,0x05E0,0x05D9,0x05EA,32,0x05E7,0x05E0,0x05D4,32,0x05DE,0x05D9,0x05D3,0x05D4,32,49,0x05DE,0x05F3,32,61,32,49,0x05DE,0x05F3),
-  ver:u(0x05D2,0x05E8,0x05E1,0x05D4,32,0x33,0x2E,0x36,32,0x2014,32,0x05E2,0x05DE,0x05D5,0x05D3,0x05D4,32,0x05DE,0x05D8,0x05D1,0x05D7,0x2F,0x05E9,0x05D9,0x05E8,0x05D5,0x05EA,0x05D9,0x05DD,0x2F,0x05DE,0x05DE,0x05F4,0x05D3,32,0x05E8,0x05D5,0x05D7,0x05D1,32,51,0x2E,0x31,0x37,0x05DE,0x05F3),
+  ver:u(0x05D2,0x05E8,0x05E1,0x05D4,32,0x33,0x2E,0x37,32,0x2014,32,0x05DE,0x05D9,0x05D5,0x05D5,0x05D9,0x05DD,0x05D5,0x05EA,32,0x05DE,0x05D3,0x05D5,0x05D9,0x05E7,0x05EA,32,40,0x05DE,0x05DE,0x05F4,0x05D3,32,51,0x2E,0x34,0x53,0xD7,0x32,0x2E,0x37,0x36,0x05DE,0x05F3),
   lnkOnline:u(0x05E4,0x05EA,0x05D7,0x05D1,0x05E8,0x05D4,32,0x05D1,0x05D0,0x05D9,0x05E0,0x05D8,0x05E8,0x05E0,0x05D8),
   copyLink:u(0x05D4,0x05E2,0x05EA,0x05E7,32,0x05E7,0x05D9,0x05E9,0x05D5,0x05E8,0x05DC,0x05E9,0x05D9,0x05E4,0x05D5,0x05E8),
   copied:u(0x05D4,0x05D5,0x05E2,0x05EA,0x05E7,0x21),
@@ -163,13 +163,13 @@ function setUI(){
   document.getElementById('c4-bh').textContent=H.c4bh;document.getElementById('c4-bp').textContent=H.c4bp;
   document.getElementById('c4-ch').textContent=H.c4ch;document.getElementById('c4-cp').textContent=H.c4cp;
   document.getElementById('c4-dh').textContent=H.c4dh;document.getElementById('c4-dp').textContent=H.c4dp;
-  var lo=document.getElementById('lnk-online');if(lo){lo.textContent=H.lnkOnline;lo.href='https://sh1657.github.io/bitan-floor-plans/?v=3.6';}
+  var lo=document.getElementById('lnk-online');if(lo){lo.textContent=H.lnkOnline;lo.href='https://sh1657.github.io/bitan-floor-plans/?v=3.7';}
   var cl=document.getElementById('btn-copy-link');if(cl)cl.textContent=H.copyLink;
   var s3=document.getElementById('sum-plan3');if(s3)s3.innerHTML='<strong>'+H.sum3.split(':')[0]+':</strong> '+H.sum3.split(':').slice(1).join(':');
 }
 setUI();
 document.getElementById('btn-copy-link').addEventListener('click',function(){
-  var url='https://sh1657.github.io/bitan-floor-plans/?v=3.6';
+  var url='https://sh1657.github.io/bitan-floor-plans/?v=3.7';
   navigator.clipboard.writeText(url).then(function(){
     var b=document.getElementById('btn-copy-link');b.textContent=H.copied;
     setTimeout(function(){b.textContent=H.copyLink;},2000);
@@ -208,32 +208,35 @@ var T={
   mamadNote:u(0x05D7,0x05DC,0x05E7,32,0x05DE,0x05DE,0x05F4,0x05D3,32,45,32,0x05DC,0x05D0,0x05E0,0x05D9,0x05EA,0x05DF,0x05DC,0x05E9,0x05D9,0x05E0,0x05D5,0x05D9),
   aboveOnly:u(0x05D1,0x05E8,0x05E6,0x05E4,0x05D4,32,0x05D1,0x05D7,0x05E6,0x05E8,32,0x2014,32,0x05E7,0x05D5,0x05DE,0x05EA,32,0x05E7,0x05E8,0x05E7,0x05E2),
   tailOnly:u(0x05D1,0x05E8,0x05E6,0x05E4,0x05D4,32,0x05D1,0x05D7,0x05E6,0x05E8,32,0x2014,32,0x05D6,0x05E0,0x05D1,32,0x05D9,0x05DE,0x05D9,0x05E0,0x05D9),
+  mamadDim:u(0x05E4,0x05E0,0x05E9,0x05D5,0x05D7,0x05D9,32,51,0x2E,0x34,0x53,0xD7,0x32,0x2E,0x37,0x36,0x05DE,0x05F3),
   stackNote:u(0x05E6,0x05D9,0x05E0,0x05D5,0x05E8,32,0x05D9,0x05D7,0x05D9,0x05D3,32,0x05E2,0x05DC,32,0x05E7,0x05D9,0x05E8,32,0x05D7,0x05D9,0x05E6,0x05D5,0x05E0,0x05D9)
 };
-var SURVEY={SCALE:100,plotWidth:9.9,buildingMain:6.73,yardTop:4.8,yardSide:2.9,shortLength:12.3,shortWidth:3.17,tailLong:15.6,builtArea:62.75,pathWidth:1.0};
+var SURVEY={SCALE:100,plotWidth:9.9,builtWidth:7.0,yardSide:2.9,yardTop:4.8,shortLength:12.3,tailLong:15.6,builtLeft:7.5,builtRight:10.8,aptWidth:3.17,mamadIntW:3.45,mamadIntD:2.76,narrowTail:3.17,builtArea:62.75,pathWidth:1.0};
 function buildGeometry(s){
   var sc=s.SCALE,G={SCALE:sc,SURVEY:s};
   G.TW=Math.round(s.plotWidth*sc);G.YW=Math.round(s.yardSide*sc);
-  G.W_NARROW=Math.round(s.shortWidth*sc);G.W_WIDE=Math.round(s.buildingMain*sc);
-  G.BW=G.W_WIDE;G.YX=G.BW;
+  G.BW=Math.round(s.builtWidth*sc);G.YX=G.BW;
+  G.W_APT=Math.round(s.aptWidth*sc);G.W_NARROW=Math.round(s.narrowTail*sc);
+  G.COL_W=Math.round(s.mamadIntW*sc);
   G.TH=Math.round(s.yardTop*sc);G.YT=-G.TH;
   G.L_LEFT=Math.round(s.shortLength*sc);G.L_RIGHT=Math.round(s.tailLong*sc);
   G.PATH=Math.round(s.pathWidth*sc);
-  G.BD=G.L_LEFT-G.TH;
-  G.TAIL_D=Math.max(80,Math.round((s.builtArea-(G.BW/sc)*(G.BD/sc))/(G.W_NARROW/sc)*sc));
-  G.YLOW=G.BD+G.TAIL_D;
+  G.BD=Math.round(s.builtLeft*sc);
+  G.BUILT_R=Math.round(s.builtRight*sc);
+  G.YLOW=G.BUILT_R;
+  G.TAIL_D=G.BUILT_R-G.BD;
   G.YD=G.L_RIGHT;
-  G.X_COL=G.BW-G.W_NARROW;
-  G.COL_W=G.W_NARROW;
-  G.X_SALON=G.X_COL;
+  G.X_COL=G.W_APT;
+  G.X_COL_END=G.X_COL+G.COL_W;
+  G.X_SALON=G.W_APT;
   G.X_MID=G.X_COL;
   G.Y_PATIO=Math.round(G.BD*0.13);
-  G.MD=Math.round(2.9*sc);
-  G.MY=G.BD-G.MD;
-  G.MX=G.X_COL;
   G.MW=G.COL_W;
-  G.Y_KIT=Math.round(2.1*sc);
-  G.Y_BATH=G.MY-Math.round(1.6*sc);
+  G.MD=Math.round(s.mamadIntD*sc);
+  G.MX=G.X_COL;
+  G.MY=G.BUILT_R-G.MD;
+  G.Y_KIT=Math.round(2.5*sc);
+  G.Y_BATH=G.MY-Math.round(1.8*sc);
   G.BATH_H=G.MY-G.Y_BATH;
   G.KIT_H=G.Y_BATH-G.Y_KIT;
   G.Y_BED_H=G.Y_KIT;
@@ -241,7 +244,7 @@ function buildGeometry(s){
   G.STACK_Y=G.Y_BATH;
   G.areaU1=s.builtArea;
   G.areaU2=Math.round(s.plotWidth*s.yardTop*10)/10;
-  G.areaU3=Math.round((s.yardSide-s.pathWidth)*G.BD/sc*10)/10;
+  G.areaU3=Math.round((s.yardSide-s.pathWidth)*G.BUILT_R/sc*10)/10;
   return G;
 }
 function buildingOutlinePath(){
@@ -273,17 +276,21 @@ function dimLine(x1,y1,x2,y2,label,opts){
   return g;
 }
 function drawDimensions(svg){
-  var g=el('g',{id:'dimensions'});
+  var g=el('g',{id:'dimensions'}),sc=G.SCALE;
   g.appendChild(dimLine(-20,G.YT,G.TW-20,G.YT,'9.9'+u(0x05DE,0x05F3)));
   g.appendChild(dimLine(G.TW+18,G.YT,G.TW+18,0,'4.8'+u(0x05DE,0x05F3)));
-  g.appendChild(dimLine(G.TW+18,G.YT,G.TW+18,G.YT+G.L_RIGHT,'15.6'+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(G.TW+18,0,G.TW+18,G.BUILT_R,'10.8'+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(G.TW+18,G.BUILT_R,G.TW+18,G.YT+G.L_RIGHT,'4.8'+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(0,-14,G.BW,-14,'7'+u(0x05DE,0x05F3)));
   g.appendChild(dimLine(G.BW,0,G.TW,0,'2.9'+u(0x05DE,0x05F3)));
   g.appendChild(dimLine(-38,G.YT,-38,G.YT+G.L_LEFT,'12.3'+u(0x05DE,0x05F3)));
-  g.appendChild(dimLine(0,G.BD+14,G.X_COL,G.BD+14,(G.X_COL/sc).toFixed(2)+u(0x05DE,0x05F3)));
-  g.appendChild(dimLine(G.X_COL,G.BD+14,G.BW,G.BD+14,'3.17'+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(-38,G.YT+G.TH,-38,G.YT+G.L_LEFT,'7.5'+u(0x05DE,0x05F3),{lx:-55,ly:G.BD/2}));
+  g.appendChild(dimLine(0,G.BD+14,G.X_COL,G.BD+14,'3.17'+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(G.X_COL,G.BD+14,G.X_COL+G.COL_W,G.BD+14,'3.45'+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(G.X_COL+G.COL_W+20,G.MY,G.X_COL+G.COL_W+20,G.MY+G.MD,'2.76'+u(0x05DE,0x05F3),{rot:'rotate(90 '+(G.X_COL+G.COL_W+20)+' '+(G.MY+G.MD/2)+')',lx:G.X_COL+G.COL_W+35,ly:G.MY+G.MD/2}));
   g.appendChild(dimLine(0,G.YLOW,G.W_NARROW,G.YLOW,'3.17'+u(0x05DE,0x05F3)));
-  g.appendChild(dimLine(G.W_NARROW,G.YLOW,G.TW,G.YLOW,'6.73'+u(0x05DE,0x05F3)));
-  g.appendChild(dimLine(G.BW+18,0,G.BW+18,G.BD,(G.BD/sc).toFixed(1)+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(G.W_NARROW,G.YLOW,G.BW,G.YLOW,((G.BW-G.W_NARROW)/sc).toFixed(2)+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(G.BW,G.YLOW,G.TW,G.YLOW,'2.9'+u(0x05DE,0x05F3)));
   svg.appendChild(g);
 }
 function drawBase(svg,prefix){
@@ -296,8 +303,8 @@ function drawBase(svg,prefix){
     rect(G.YX,G.YT,G.YW,G.L_RIGHT,'#f1f8e9','#81c784'),
     txt(G.YX+G.YW+35,G.YT+G.L_RIGHT*0.45,T.yardSide,{'text-anchor':'middle','font-size':13,fill:'#2e7d32','font-weight':'bold',transform:'rotate(90 '+(G.YX+G.YW+35)+' '+(G.YT+G.L_RIGHT*0.45)+')'}),
     txt(G.YX+G.YW+35,G.BD*0.5,T.yardSideSub,{'text-anchor':'middle','font-size':10,fill:'#558b2f',transform:'rotate(90 '+(G.YX+G.YW+35)+' '+(G.BD*0.5)+')'}),
-    rect(G.YX,0,G.PATH,G.BD,'#fff9c4','#fbc02d',1.5,{'stroke-dasharray':'6 4'}),
-    txt(G.YX+G.PATH/2,G.BD/2,T.path,{'text-anchor':'middle','font-size':10,fill:'#f57f17',transform:'rotate(90 '+(G.YX+G.PATH/2)+' '+(G.BD/2)+')'})]));
+    rect(G.YX,0,G.PATH,G.BUILT_R,'#fff9c4','#fbc02d',1.5,{'stroke-dasharray':'6 4'}),
+    txt(G.YX+G.PATH/2,G.BUILT_R/2,T.path,{'text-anchor':'middle','font-size':10,fill:'#f57f17',transform:'rotate(90 '+(G.YX+G.PATH/2)+' '+(G.BUILT_R/2)+')'})]));
   svg.appendChild(rect(0,0,G.BW,G.BD,'url(#'+gid+')'));
   svg.appendChild(el('path',{d:buildingOutlinePath(),fill:'none',stroke:'#1a1a1a','stroke-width':8}));
   svg.appendChild(txt(G.BW*0.42,G.BD*0.52,T.builtExisting,{'text-anchor':'middle','font-size':11,fill:'#555','font-weight':'bold'}));
@@ -314,16 +321,17 @@ function drawMamadInUnit(svg,prefix,fill,stroke,fc){
   svg.appendChild(el('g',{id:id},[
     rect(G.MX,G.MY,G.MW,G.MD,fill,stroke,2),
     rect(G.MX,G.MY,G.MW,G.MD,'none','#b71c1c',3,{'stroke-dasharray':'8 4'}),
-    el('line',{x1:G.MX,y1:G.MY,x2:G.BW,y2:G.MY,stroke:'#b71c1c','stroke-width':2}),
-    txt(G.MX+G.MW/2,G.MY+G.MD/2-6,T.mamad,{'text-anchor':'middle','font-size':12,fill:fc,'font-weight':'bold'}),
-    txt(G.MX+G.MW/2,G.MY+G.MD/2+12,T.mamadLock,{'text-anchor':'middle','font-size':9,fill:'#b71c1c'})
+    el('line',{x1:G.MX,y1:G.MY,x2:G.X_COL+G.COL_W,y2:G.MY,stroke:'#b71c1c','stroke-width':2}),
+    txt(G.MX+G.MW/2,G.MY+G.MD/2-8,T.mamad,{'text-anchor':'middle','font-size':12,fill:fc,'font-weight':'bold'}),
+    txt(G.MX+G.MW/2,G.MY+G.MD/2+8,T.mamadDim,{'text-anchor':'middle','font-size':8,fill:'#666'}),
+    txt(G.MX+G.MW/2,G.MY+G.MD/2+22,T.mamadLock,{'text-anchor':'middle','font-size':9,fill:'#b71c1c'})
   ]));
 }
 function drawCoreColumnLines(svg,stroke,op){
   var o=op||'0.45';
-  svg.appendChild(el('line',{x1:G.X_COL,y1:0,x2:G.X_COL,y2:G.BD,stroke:stroke,'stroke-width':1,'stroke-dasharray':'6 4',opacity:o}));
-  svg.appendChild(el('line',{x1:G.X_COL,y1:G.Y_KIT,x2:G.BW,y2:G.Y_KIT,stroke:stroke,'stroke-width':1,'stroke-dasharray':'6 4',opacity:o}));
-  svg.appendChild(el('line',{x1:G.X_COL,y1:G.Y_BATH,x2:G.BW,y2:G.Y_BATH,stroke:stroke,'stroke-width':1,'stroke-dasharray':'6 4',opacity:o}));
+  svg.appendChild(el('line',{x1:G.X_COL,y1:0,x2:G.X_COL,y2:G.BUILT_R,stroke:stroke,'stroke-width':1,'stroke-dasharray':'6 4',opacity:o}));
+  svg.appendChild(el('line',{x1:G.X_COL,y1:G.Y_KIT,x2:G.X_COL+G.COL_W,y2:G.Y_KIT,stroke:stroke,'stroke-width':1,'stroke-dasharray':'6 4',opacity:o}));
+  svg.appendChild(el('line',{x1:G.X_COL,y1:G.Y_BATH,x2:G.X_COL+G.COL_W,y2:G.Y_BATH,stroke:stroke,'stroke-width':1,'stroke-dasharray':'6 4',opacity:o}));
   svg.appendChild(el('line',{x1:0,y1:G.Y_PATIO,x2:G.X_COL,y2:G.Y_PATIO,stroke:stroke,'stroke-width':1,'stroke-dasharray':'6 4',opacity:o}));
 }
 function drawCoreColumnLabels(svg,fc){
@@ -400,7 +408,7 @@ function buildPlan3(svg){drawBase(svg,'p3');
     txt(G.TW/2,G.YT+G.TH*0.04,T.u2t+' (~'+G.areaU2+' '+T.sqm+')',{'text-anchor':'middle','font-size':14,fill:'#bf360c','font-weight':'bold'}),
     txt(G.TW/2,G.YT+G.TH*0.08,T.aboveOnly,{'text-anchor':'middle','font-size':9,fill:'#e65100'})
   ]));
-  var u3y=0,u3h=G.BD,u3w=G.YW-G.PATH;
+  var u3y=0,u3h=G.BUILT_R,u3w=G.YW-G.PATH;
   svg.appendChild(el('g',{id:'unit3'},[
     rect(G.YX,u3y,G.YW,u3h,'rgba(46,125,50,0.28)','#2e7d32',3),
     rect(G.YX+G.PATH,u3y+G.BD*0.03,u3w,u3h*0.42,'#c8e6c9','#2e7d32',1.5),
@@ -413,9 +421,9 @@ function buildPlan3(svg){drawBase(svg,'p3');
     txt(G.YX+G.YW/2,u3y+44,T.tailOnly,{'text-anchor':'middle','font-size':9,fill:'#2e7d32'})
   ]));
   drawWindows(svg);
-  drawStack(svg,[{x1:scx,y1:scy,x2:G.TW*0.35,y2:G.YT+G.TH*0.42,lbl:T.branch2,lx:G.TW*0.45,ly:G.YT+G.TH*0.58},{x1:scx,y1:scy,x2:G.YX+G.YW/2,y2:G.BD*0.56,lbl:T.branch3,lx:G.YX+G.YW+40,ly:G.BD*0.56}]);
+  drawStack(svg,[{x1:scx,y1:scy,x2:G.TW*0.35,y2:G.YT+G.TH*0.42,lbl:T.branch2,lx:G.TW*0.45,ly:G.YT+G.TH*0.58},{x1:scx,y1:scy,x2:G.YX+G.YW/2,y2:G.BUILT_R*0.56,lbl:T.branch3,lx:G.YX+G.YW+40,ly:G.BUILT_R*0.56}]);
   drawEntries(svg,[{x:G.BW*0.22,y:G.BD+8,n:'1',color:'#1565c0',lx:G.BW*0.22,ly:G.BD+35,lbl:T.entryRear},
-    {x:G.TW*0.35,y:G.YT-8,n:'2',color:'#e65100',lx:G.TW*0.35,ly:G.YT-35,lbl:T.entryFront},{x:G.YX+G.YW-8,y:G.BD*0.56,n:'3',color:'#2e7d32',lx:G.YX+G.YW+25,ly:G.BD*0.56,lbl:T.entrySide}]);
+    {x:G.TW*0.35,y:G.YT-8,n:'2',color:'#e65100',lx:G.TW*0.35,ly:G.YT-35,lbl:T.entryFront},{x:G.YX+G.YW-8,y:G.BUILT_R*0.56,n:'3',color:'#2e7d32',lx:G.YX+G.YW+25,ly:G.BUILT_R*0.56,lbl:T.entrySide}]);
   svg.appendChild(txt(G.BW/2,G.BD+60,T.u1t+' (~'+G.areaU1+' '+T.sqm+')',{'text-anchor':'middle','font-size':12,fill:'#1565c0','font-weight':'bold'}));
   svg.appendChild(txt(G.BW/2,G.BD+78,T.mamadNote,{'text-anchor':'middle','font-size':9,fill:'#1565c0'}));}
 
