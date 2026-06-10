@@ -39,110 +39,103 @@
     .hdr-actions a:hover,.hdr-actions button:hover{background:rgba(255,255,255,.22)}
     .summary-box{display:flex;flex-wrap:wrap;gap:1rem;margin-top:.8rem;padding:.75rem 1rem;background:#f1f8e9;border-radius:8px;font-size:.85rem}
     .summary-box strong{color:#1a3a2a}
-    .plan-tabs,.controls,.hdr-actions,footer{display:none!important}
-    .plan-panel{display:none!important}
-    #panel-plan5{display:block!important}
-    main{max-width:100%;padding:.5rem 1rem 1rem}
-    .plan-wrap{padding:1rem}
-    svg{max-width:100%;width:100%;height:auto}
+    body.pdf-body{background:#fff}
+    .plan-tabs,.controls,.hdr-actions,footer,.note-box,.plan-panel{display:none!important}
+    .pdf-page{
+      page-break-after:always;
+      page-break-inside:avoid;
+      break-inside:avoid;
+      min-height:277mm;
+      display:flex;
+      flex-direction:column;
+      padding:0 0 4mm;
+    }
+    .pdf-page:last-child{page-break-after:auto}
+    .pdf-hdr{background:#1a3a2a;color:#fff;padding:.7rem 1rem;margin-bottom:.4rem;border-radius:4px}
+    .pdf-hdr h1{font-size:1.1rem}.pdf-hdr p{font-size:.78rem;opacity:.9;margin-top:.15rem}
+    .pdf-section-title{font-size:1rem;color:#1a3a2a;margin:.3rem 0 .5rem;padding-bottom:.25rem;border-bottom:2px solid #81c784}
+    .plan-wrap{background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:.4rem;overflow:hidden}
+    .plan-fit{flex:1;min-height:0;height:190mm;max-height:190mm;display:flex;align-items:center;justify-content:center}
+    .plan-fit svg{width:100%;height:100%;max-height:190mm}
+    .plan-zoom{flex:1;min-height:0;height:215mm;max-height:215mm;display:flex;align-items:center;justify-content:center}
+    .plan-zoom svg{width:100%;height:100%;max-height:215mm}
+    .legend-compact{font-size:.72rem;margin-top:.4rem;gap:.5rem}
+    .unit-card{margin-top:.6rem;max-width:100%}
+    main{max-width:100%;padding:0}
     @media print{
-      @page{size:A3 landscape;margin:10mm}
-      body{background:#fff}
-      header,main,.card,.plan-wrap,.summary-box,.legend{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-      .info-panel{grid-template-columns:repeat(3,1fr)}
+      @page{size:A3 landscape;margin:8mm}
+      body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .pdf-hdr,.plan-wrap,.legend,.summary-box,.card,.pdf-section-title{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .pdf-page{min-height:auto;height:auto}
+      .plan-fit{height:185mm;max-height:185mm}
+      .plan-zoom{height:210mm;max-height:210mm}
     }
   </style>
 </head>
-<body>
-  <header>
+<body class="pdf-body">
+  <header style="display:none">
     <h1 id="hdr-title"></h1>
     <p id="hdr-sub"></p>
-    <p id="hdr-ver" style="font-size:.75rem;opacity:.75;margin-top:.25rem"></p>
-    <div class="hdr-actions">
-      <a id="lnk-online" href="https://sh1657.github.io/bitan-floor-plans/" target="_blank" rel="noopener"></a>
-      <button type="button" id="btn-copy-link"></button>
-    </div>
+    <p id="hdr-ver"></p>
   </header>
-  <div class="plan-tabs">
-    <button class="active" data-plan="phase0" id="tab-phase0"></button>
-    <button data-plan="plan3" id="tab-plan3"></button>
-    <button data-plan="plan4" id="tab-plan4"></button>
-    <button data-plan="plan5" id="tab-plan5"></button>
+  <div class="plan-tabs" style="display:none">
+    <button id="tab-phase0"></button>
+    <button id="tab-plan3"></button>
+    <button id="tab-plan4"></button>
+    <button id="tab-plan5"></button>
   </div>
   <main>
-    <div class="note-box" id="global-note"></div>
-    <div class="plan-panel active" id="panel-phase0">
-      <div class="controls">
-        <span id="lbl-show-p0"></span>
-        <button class="active" data-layer="all" data-plan="phase0" id="btn-all-p0"></button>
-        <button data-layer="u0" data-plan="phase0" id="btn-u0-p0"></button>
-        <button data-layer="infra" data-plan="phase0" id="btn-infra-p0"></button>
+    <div class="note-box" id="global-note" style="display:none"></div>
+
+    <section class="pdf-page pdf-page-full">
+      <div class="pdf-hdr">
+        <h1 id="pdf-hdr-title"></h1>
+        <p id="pdf-hdr-sub"></p>
+        <p id="pdf-hdr-ver" style="font-size:.7rem;opacity:.75;margin-top:.15rem"></p>
       </div>
-      <div class="plan-wrap"><svg class="plan-svg" data-plan="phase0" viewBox="-80 -560 1150 3020" xmlns="http://www.w3.org/2000/svg"></svg></div>
-      <div class="legend" id="leg-phase0"></div>
-      <div class="info-panel"><div class="card p0"><h3 id="c0-h"></h3><p id="c0-p"></p></div></div>
-    </div>
-    <div class="plan-panel" id="panel-plan3">
-      <div class="controls">
-        <span id="lbl-show-p3"></span>
-        <button class="active" data-layer="all" data-plan="plan3" id="btn-all-p3"></button>
-        <button data-layer="u1" data-plan="plan3" id="btn-u1-p3"></button>
-        <button data-layer="u2" data-plan="plan3" id="btn-u2-p3"></button>
-        <button data-layer="u3" data-plan="plan3" id="btn-u3-p3"></button>
-        <button data-layer="infra" data-plan="plan3" id="btn-infra-p3"></button>
+      <h2 class="pdf-section-title" id="ttl-full"></h2>
+      <div class="plan-wrap plan-fit">
+        <svg class="plan-svg" id="svg-master" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
-      <div class="plan-wrap"><svg class="plan-svg" data-plan="plan3" viewBox="-80 -560 1150 3020" xmlns="http://www.w3.org/2000/svg"></svg></div>
-      <div class="legend" id="leg-plan3"></div>
-      <div class="info-panel">
-        <div class="card u1"><h3 id="c3-1h"></h3><p id="c3-1p"></p></div>
-        <div class="card u3"><h3 id="c3-2h"></h3><p id="c3-2p"></p></div>
-        <div class="card u2"><h3 id="c3-3h"></h3><p id="c3-3p"></p></div>
-      </div>
-      <div class="summary-box" id="sum-plan3"></div>
-    </div>
-    <div class="plan-panel" id="panel-plan4">
-      <div class="controls">
-        <span id="lbl-show-p4"></span>
-        <button class="active" data-layer="all" data-plan="plan4" id="btn-all-p4"></button>
-        <button data-layer="u1" data-plan="plan4" id="btn-u1-p4"></button>
-        <button data-layer="u2" data-plan="plan4" id="btn-u2-p4"></button>
-        <button data-layer="u3" data-plan="plan4" id="btn-u3-p4"></button>
-        <button data-layer="u4" data-plan="plan4" id="btn-u4-p4"></button>
-        <button data-layer="infra" data-plan="plan4" id="btn-infra-p4"></button>
-      </div>
-      <div class="plan-wrap"><svg class="plan-svg" data-plan="plan4" viewBox="-80 -560 1150 3020" xmlns="http://www.w3.org/2000/svg"></svg></div>
-      <div class="legend" id="leg-plan4"></div>
-      <div class="info-panel">
-        <div class="card u1"><h3 id="c4-ah"></h3><p id="c4-ap"></p></div>
-        <div class="card u2"><h3 id="c4-bh"></h3><p id="c4-bp"></p></div>
-        <div class="card u3"><h3 id="c4-ch"></h3><p id="c4-cp"></p></div>
-        <div class="card u4"><h3 id="c4-dh"></h3><p id="c4-dp"></p></div>
-      </div>
-    </div>
-    <div class="plan-panel" id="panel-plan5">
-      <div class="controls">
-        <span id="lbl-show-p5"></span>
-        <button class="active" data-layer="all" data-plan="plan5" id="btn-all-p5"></button>
-        <button data-layer="u1" data-plan="plan5" id="btn-u1-p5"></button>
-        <button data-layer="u2" data-plan="plan5" id="btn-u2-p5"></button>
-        <button data-layer="u3" data-plan="plan5" id="btn-u3-p5"></button>
-        <button data-layer="o1" data-plan="plan5" id="btn-o1-p5"></button>
-        <button data-layer="u5" data-plan="plan5" id="btn-u5-p5"></button>
-        <button data-layer="infra" data-plan="plan5" id="btn-infra-p5"></button>
-      </div>
-      <div class="plan-wrap"><svg class="plan-svg" data-plan="plan5" viewBox="-80 -560 1150 3020" xmlns="http://www.w3.org/2000/svg"></svg></div>
-      <div class="legend" id="leg-plan5"></div>
-      <div class="info-panel">
-        <div class="card u1"><h3 id="c5-1h"></h3><p id="c5-1p"></p></div>
-        <div class="card u2"><h3 id="c5-2h"></h3><p id="c5-2p"></p></div>
-        <div class="card u3"><h3 id="c5-3h"></h3><p id="c5-3p"></p></div>
-        <div class="card u5"><h3 id="c5-4h"></h3><p id="c5-4p"></p></div>
-        <div class="card o2"><h3 id="c5-5h"></h3><p id="c5-5p"></p></div>
-      </div>
+      <div class="legend legend-compact" id="leg-plan5"></div>
       <div class="summary-box" id="sum-plan5"></div>
+    </section>
+
+    <section class="pdf-page pdf-page-unit">
+      <h2 class="pdf-section-title" id="ttl-u1"></h2>
+      <div class="plan-wrap plan-zoom">
+        <svg class="plan-svg unit-svg" id="svg-u1" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="card u1 unit-card"><h3 id="c5-1h"></h3><p id="c5-1p"></p></div>
+    </section>
+
+    <section class="pdf-page pdf-page-unit">
+      <h2 class="pdf-section-title" id="ttl-u2"></h2>
+      <div class="plan-wrap plan-zoom">
+        <svg class="plan-svg unit-svg" id="svg-u2" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="card u2 unit-card"><h3 id="c5-2h"></h3><p id="c5-2p"></p></div>
+    </section>
+
+    <section class="pdf-page pdf-page-unit">
+      <h2 class="pdf-section-title" id="ttl-u3"></h2>
+      <div class="plan-wrap plan-zoom">
+        <svg class="plan-svg unit-svg" id="svg-u3" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="card u3 unit-card"><h3 id="c5-3h"></h3><p id="c5-3p"></p></div>
+    </section>
+
+    <div style="display:none">
+      <div id="panel-phase0"><svg class="plan-svg" data-plan="phase0"></svg><div id="leg-phase0"></div><h3 id="c0-h"></h3><p id="c0-p"></p></div>
+      <div id="panel-plan3"><svg class="plan-svg" data-plan="plan3"></svg><div id="leg-plan3"></div><div id="c3-1h"></div><p id="c3-1p"></p><div id="c3-2h"></div><p id="c3-2p"></p><div id="c3-3h"></div><p id="c3-3p"></p><div id="sum-plan3"></div></div>
+      <div id="panel-plan4"><svg class="plan-svg" data-plan="plan4"></svg><div id="leg-plan4"></div><div id="c4-ah"></div><p id="c4-ap"></p><div id="c4-bh"></div><p id="c4-bp"></p><div id="c4-ch"></div><p id="c4-cp"></p><div id="c4-dh"></div><p id="c4-dp"></p></div>
+      <div id="panel-plan5"></div>
+      <span id="lbl-show-p0"></span><span id="lbl-show-p3"></span><span id="lbl-show-p4"></span><span id="lbl-show-p5"></span>
+      <button id="btn-copy-link"></button><a id="lnk-online"></a>
+      <div id="c5-4h"></div><p id="c5-4p"></p><div id="c5-5h"></div><p id="c5-5p"></p>
     </div>
   </main>
-  <footer id="ftr"></footer>
+  <footer id="ftr" style="display:none"></footer>
 <script>
 /* All Hebrew via Unicode escapes - works on any encoding */
 function u(){return String.fromCharCode.apply(null,arguments)}
@@ -187,6 +180,10 @@ var H={
   c55h:u(0x05DE,0x05E9,0x05E8,0x05D3,32,0x05D1,0x05F3,32,45,32,0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05D1,0x05D7,0x05E6,0x05E8),
   c55p:u(0x31,0x36,0x2E,0x38,32,0x05DE,0x05F4,0x05E8,0x2E,32,0x05DE,0x05E8,0x05D5,0x05D5,0x05D7,32,0x05DE,0x05D8,0x05E8,32,0x05D0,0x05D7,0x05D3,32,0x05DC,0x05D0,0x05D5,0x05D5,0x05D9,0x05E8,0x2E,32,0x05DB,0x05E0,0x05D9,0x05E1,0x05D4,32,0x05DE,0x05D4,0x05D2,0x05D3,0x05E8,0x05D4,0x2E),
   sum5:u(0x05E1,0x05D9,0x05DB,0x05D5,0x05DD,0x3A,32,0x05D3,0x05D9,0x05E8,0x05D4,32,0x31,32,0x05E1,0x05D8,0x05D5,0x05D3,0x05D9,0x05D5,0x2C,32,0x32,0x2B,0x33,32,0x05DE,0x05D5,0x05E8,0x05D7,0x05D1,0x05D5,0x05EA,32,0x05E2,0x05D3,32,0x05D4,0x05D2,0x05D3,0x05E8,0x2C,32,0x2B,32,0x32,32,0x05DE,0x05E9,0x05E8,0x05D3,0x05D9,0x05DD,0x2E,32,0x05D7,0x05E6,0x05E8,32,0x34,0x2E,0x38,0x05DE,0x05F3,32,0x05DC,0x05D0,32,0x05DE,0x05D2,0x05D5,0x05E2,0x05D4,0x2E),
+  pdfFull:u(0x05EA,0x05DB,0x05E0,0x05D9,0x05EA,32,0x05DB,0x05D5,0x05DC,0x05DC,0x05EA),
+  pdfU1:u(0x05D3,0x05D9,0x05E8,0x05D4,32,0x31,32,0x2014,32,0x05E1,0x05DC,0x05D5,0x05DF,0x05D5,0x05E0,0x05D9,0x05EA),
+  pdfU2:u(0x05D3,0x05D9,0x05E8,0x05D4,32,0x32,32,0x2014,32,0x05E9,0x05E0,0x05D3,32,0x05D7,0x05D3,0x05E8,0x05D9,0x05DD),
+  pdfU3:u(0x05D3,0x05D9,0x05E8,0x05D4,32,0x33,32,0x2014,32,0x05DE,0x05DE,0x05F4,0x05D3,0x2F,0x05D6,0x05E0,0x05D1),
 };
 function setUI(){
   document.title=H.title;
@@ -222,9 +219,17 @@ function setUI(){
   var cl=document.getElementById('btn-copy-link');if(cl)cl.textContent=H.copyLink;
   var s3=document.getElementById('sum-plan3');if(s3)s3.innerHTML='<strong>'+H.sum3.split(':')[0]+':</strong> '+H.sum3.split(':').slice(1).join(':');
   var s5=document.getElementById('sum-plan5');if(s5)s5.innerHTML='<strong>'+H.sum5.split(':')[0]+':</strong> '+H.sum5.split(':').slice(1).join(':');
+  var pt=document.getElementById('pdf-hdr-title');if(pt)pt.textContent=H.title;
+  var ps=document.getElementById('pdf-hdr-sub');if(ps)ps.textContent=H.sub;
+  var pv=document.getElementById('pdf-hdr-ver');if(pv)pv.textContent=H.ver;
+  var tf=document.getElementById('ttl-full');if(tf)tf.textContent=H.pdfFull;
+  var t1=document.getElementById('ttl-u1');if(t1)t1.textContent=H.pdfU1;
+  var t2=document.getElementById('ttl-u2');if(t2)t2.textContent=H.pdfU2;
+  var t3=document.getElementById('ttl-u3');if(t3)t3.textContent=H.pdfU3;
 }
 setUI();
-document.getElementById('btn-copy-link').addEventListener('click',function(){
+var btnCopy=document.getElementById('btn-copy-link');
+if(btnCopy)btnCopy.addEventListener('click',function(){
   var url='https://sh1657.github.io/bitan-floor-plans/?v=5.4';
   navigator.clipboard.writeText(url).then(function(){
     var b=document.getElementById('btn-copy-link');b.textContent=H.copied;
@@ -358,7 +363,7 @@ function updateMetrics(){
   var c2p=document.getElementById('c3-2p');if(c2p)c2p.textContent=u(0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05D7,0x05D3,0x05E9,0x05D4,32,0x05D1,0x05E8,0x05E6,0x05D5,0x05E2,0x05D4,32,0x05D4,0x05E2,0x05DC,0x05D9,0x05D5,0x05E0,0x05D4,32)+SURVEY.yardTop+u(0x05DE,0x05F3,32,0x05D1,0x05E8,0x05D5,0x05D7,0x05D1,32,0x05D4,0x05D7,0x05E6,0x05E8,0x2E,32,0x05E9,0x05D5,0x05DE,0x05E7,32,0x7E)+G.areaU2+u(0x20,0x05DE,0x05F4,0x05E8,0x2E);
   var c3p=document.getElementById('c3-3p');if(c3p)c3p.textContent=u(0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05D7,0x05D3,0x05E9,0x05D4,32,0x05D1,0x05D6,0x05E0,0x05D1,32,0x05D9,0x05DE,0x05E0,0x05D9,32)+SURVEY.yardSide+u(0x05DE,0x05F3,0x2E,32,0x05DE,0x05E1,0x05EA,0x05D9,0x05D9,0x05DD,32,0x05D1,0x05E8,0x05DE,0x05EA,32,0x05D4,0x05DE,0x05DE,0x05F4,0x05D3,0x2E,32,0x05E9,0x05D1,0x05D9,0x05DC,32)+SURVEY.pathWidth+u(0x05DE,0x05F3,32,0x05D0,0x05D5,0x05E4,0x05E6,0x05D9,0x05D5,0x05E0,0x05DC,0x05D9,0x2E,32,0x05E2,0x05E8,0x05DA,32,0x7E)+G.areaU3+u(0x20,0x05DE,0x05F4,0x05E8,0x2E);
   var s3=document.getElementById('sum-plan3');if(s3)s3.innerHTML='<strong>'+H.sum3.split(':')[0]+':</strong> '+u(0x05D9,0x05D7,0x05F3,0x05F3,0x31,32,0x05E7,0x05D9,0x05D9,0x05DD,32,0x2B,32,0x05D9,0x05D7,0x05F3,0x05F3,0x32,32,0x05D1,0x05E8,0x05E6,0x05E4,0x05D4,32,0x2B,32,0x05D9,0x05D7,0x05F3,0x05F3,0x33,32,0x05D1,0x05D6,0x05E0,0x05D1,32,0x2248,32)+tot+u(0x20,0x05DE,0x05F4,0x05E8,32,0x05D1,0x05E0,0x05D9,0x05D9,0x05D4);
-  document.querySelectorAll('.plan-svg').forEach(function(s){s.setAttribute('viewBox','-80 '+G.YT+' '+(G.TW+100)+' '+(G.L_RIGHT+180));});
+  document.querySelectorAll('.plan-svg#svg-master').forEach(function(s){s.setAttribute('viewBox','-80 '+G.YT+' '+(G.TW+100)+' '+(G.L_RIGHT+180));});
 }
 updateMetrics();
 function el(tag,attrs,children){var e=document.createElementNS('http://www.w3.org/2000/svg',tag);
@@ -587,8 +592,8 @@ function drawExtDoor(svg,x,y,w,h,label){
   g.appendChild(txt(x+w/2,y-h/2,label||T.door,{'text-anchor':'middle','font-size':8,fill:'#795548','font-weight':'bold'}));
   svg.appendChild(g);
 }
-function buildPlan5(svg){
-  drawBase(svg,'p5');
+function buildPlan5(svg,prefix){
+  drawBase(svg,prefix||'p5');
   var sc=G.SCALE,cw=G.COL_W5,yU1K=Math.round(5.0*sc),yU1End=G.Y_U1_END;
   var u2DoorY=Math.round(G.Y_KIT*0.55);
   var annexY=yU1End,annexH=G.BD-yU1End;
@@ -671,8 +676,42 @@ function buildPlan5(svg){
   ]);
 }
 
-var builders={phase0:buildPhase0,plan3:buildPlan3,plan4:buildPlan4,plan5:buildPlan5};
-document.querySelectorAll('.plan-svg').forEach(function(s){builders[s.dataset.plan](s);});
+function applyUnitLayer(svg,layer){
+  var base=['yard-top','yard-side','dimensions','walls','grid'];
+  var infra=['infra','entrances','windows'];
+  svg.querySelectorAll('g[id]').forEach(function(g){
+    var id=g.id;
+    if(layer==='u1'&&(id.indexOf('unit1')===0||id==='patio-u1'||id==='air-a')){g.style.opacity='1';return;}
+    if(layer==='u2'&&(id.indexOf('unit2')===0||id==='path-mid')){g.style.opacity='1';return;}
+    if(layer==='u3'&&id.indexOf('unit3')===0){g.style.opacity='1';return;}
+    if(infra.indexOf(id)>=0){g.style.opacity=layer==='u2'?'0.9':'0.75';return;}
+    if(id.indexOf('office')===0){g.style.opacity=layer==='u2'?'0.35':'0.12';return;}
+    if(base.indexOf(id)>=0||id.indexOf('walls')===0){g.style.opacity='0.2';return;}
+    g.style.opacity='0.06';
+  });
+}
+
+function setupPdfExport(){
+  var fullVb='-80 '+G.YT+' '+(G.TW+100)+' '+(G.L_RIGHT+180);
+  var pad=50,yU1End=G.Y_U1_END,annexY=yU1End,cw=G.COL_W5;
+  var master=document.getElementById('svg-master');
+  buildPlan5(master,'mst');
+  master.setAttribute('viewBox',fullVb);
+  master.setAttribute('preserveAspectRatio','xMidYMid meet');
+  var units=[
+    {id:'svg-u1',pfx:'u1',layer:'u1',vb:[-40,G.YT-45,G.X_COL+90,G.Y_U1_END-G.YT+110]},
+    {id:'svg-u2',pfx:'u2',layer:'u2',vb:[G.X_COL-45,-35,cw+95,G.Y_BATH+70]},
+    {id:'svg-u3',pfx:'u3',layer:'u3',vb:[-45,annexY-45,G.TW+95,G.BUILT_R-annexY+110]}
+  ];
+  units.forEach(function(u){
+    var s=document.getElementById(u.id);
+    buildPlan5(s,u.pfx);
+    s.setAttribute('viewBox',u.vb.join(' '));
+    s.setAttribute('preserveAspectRatio','xMidYMid meet');
+    applyUnitLayer(s,u.layer);
+  });
+}
+setupPdfExport();
 
 var legends={
   phase0:[[0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05D0,0x05D7,0x05EA,32,43,32,0x05DE,0x05DE,0x05F4,0x05D3,0x2F,0x05D7,0x05D3,0x05E8,32,0x05E9,0x05D9,0x05E0,0x05D4,32,0x32,'#6a1b9a'],
@@ -714,44 +753,6 @@ Object.keys(legends).forEach(function(p){
   });
 });
 
-function switchTab(plan){
-  document.querySelectorAll('.plan-tabs button').forEach(function(b){b.classList.toggle('active',b.dataset.plan===plan);});
-  document.querySelectorAll('.plan-panel').forEach(function(p){p.classList.remove('active');});
-  document.getElementById('panel-'+plan).classList.add('active');
-}
-document.querySelectorAll('.plan-tabs button').forEach(function(btn){
-  btn.addEventListener('click',function(){switchTab(btn.dataset.plan);});
-});
-document.addEventListener('keydown',function(e){
-  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
-  if(e.key==='1')switchTab('phase0');
-  if(e.key==='2')switchTab('plan3');
-  if(e.key==='3')switchTab('plan4');
-  if(e.key==='4')switchTab('plan5');
-});
-document.querySelectorAll('.controls button').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    var plan=btn.dataset.plan,panel=document.getElementById('panel-'+plan);
-    panel.querySelectorAll('.controls button').forEach(function(b){b.classList.remove('active');});
-    btn.classList.add('active');var layer=btn.dataset.layer,svg=panel.querySelector('.plan-svg');
-    var infra=['infra','entrances','windows'],base=['yard-top','yard-side'];
-    svg.querySelectorAll('g[id]').forEach(function(g){
-      var id=g.id;
-      if(layer==='all'){g.style.opacity='1';return;}
-      if(layer==='infra'&&infra.indexOf(id)>=0){g.style.opacity='1';return;}
-      if(layer==='infra'){g.style.opacity=base.indexOf(id)>=0?'0.4':'0.15';return;}
-      if(layer==='u0'&&(id.indexOf('unit0')===0)){g.style.opacity='1';return;}
-      if(layer==='u1'&&(id.indexOf('unit1')===0)){g.style.opacity='1';return;}
-      if(layer==='u2'&&id.indexOf('unit2')===0){g.style.opacity='1';return;}
-      if(layer==='u3'&&id.indexOf('unit3')===0){g.style.opacity='1';return;}
-      if(layer==='u4'&&id.indexOf('unit4')===0){g.style.opacity='1';return;}
-      if(layer==='o1'&&id.indexOf('office1')===0){g.style.opacity='1';return;}
-      if(layer==='u5'&&id.indexOf('office2')===0){g.style.opacity='1';return;}
-      if(base.indexOf(id)>=0||infra.indexOf(id)>=0||id==='walls-new'){g.style.opacity='0.35';}
-      else{g.style.opacity='0.1';}
-    });
-  });
-});
 </script>
 </body>
 </html>
