@@ -123,7 +123,7 @@ var H={
   u1btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x31), u2btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x32),
   u3btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05F3,0x05F3,0x33), u4btn:u(0x05D9,0x05D7,0x05D9,0x05D3,0x05D4,32,0x05D3,0x05F3),
   ftr:u(0x05EA,0x05D5,0x05DB,0x05E0,0x05D9,0x05EA,32,0x05E8,0x05D0,0x05E9,0x05D5,0x05E0,0x05D9,0x05EA,32,0x05E7,0x05E0,0x05D4,32,0x05DE,0x05D9,0x05D3,0x05D4,32,49,0x05DE,0x05F3,32,61,32,49,0x05DE,0x05F3),
-  ver:u(0x05D2,0x05E8,0x05E1,0x05D4,32,51,0x2E,0x33,32,0x2014,32,0x05DE,0x05D9,0x05D3,0x05D5,0x05EA,32,0x05DE,0x05D3,0x05D5,0x05D9,0x05E7,0x05D5,0x05EA,32,0x05DE,0x05D3,0x05D5,0x05D9,0x05E7,0x05D5,0x05EA),
+  ver:u(0x05D2,0x05E8,0x05E1,0x05D4,32,51,0x2E,0x34,32,0x2014,32,0x05DE,0x05D9,0x05D3,0x05D5,0x05EA,32,0x05DC,0x05D9,0x05D8,0x05D4,32,0x05DE,0x05D3,0x05D5,0x05D9,0x05E7,0x05D5,0x05EA),
   lnkOnline:u(0x05E4,0x05EA,0x05D7,0x05D1,0x05E8,0x05D4,32,0x05D1,0x05D0,0x05D9,0x05E0,0x05D8,0x05E8,0x05E0,0x05D8),
   copyLink:u(0x05D4,0x05E2,0x05EA,0x05E7,32,0x05E7,0x05D9,0x05E9,0x05D5,0x05E8,0x05DC,0x05E9,0x05D9,0x05E4,0x05D5,0x05E8),
   copied:u(0x05D4,0x05D5,0x05E2,0x05EA,0x05E7,0x21),
@@ -163,13 +163,13 @@ function setUI(){
   document.getElementById('c4-bh').textContent=H.c4bh;document.getElementById('c4-bp').textContent=H.c4bp;
   document.getElementById('c4-ch').textContent=H.c4ch;document.getElementById('c4-cp').textContent=H.c4cp;
   document.getElementById('c4-dh').textContent=H.c4dh;document.getElementById('c4-dp').textContent=H.c4dp;
-  var lo=document.getElementById('lnk-online');if(lo){lo.textContent=H.lnkOnline;lo.href='https://sh1657.github.io/bitan-floor-plans/?v=3.3';}
+  var lo=document.getElementById('lnk-online');if(lo){lo.textContent=H.lnkOnline;lo.href='https://sh1657.github.io/bitan-floor-plans/?v=3.4';}
   var cl=document.getElementById('btn-copy-link');if(cl)cl.textContent=H.copyLink;
   var s3=document.getElementById('sum-plan3');if(s3)s3.innerHTML='<strong>'+H.sum3.split(':')[0]+':</strong> '+H.sum3.split(':').slice(1).join(':');
 }
 setUI();
 document.getElementById('btn-copy-link').addEventListener('click',function(){
-  var url='https://sh1657.github.io/bitan-floor-plans/?v=3.3';
+  var url='https://sh1657.github.io/bitan-floor-plans/?v=3.4';
   navigator.clipboard.writeText(url).then(function(){
     var b=document.getElementById('btn-copy-link');b.textContent=H.copied;
     setTimeout(function(){b.textContent=H.copyLink;},2000);
@@ -209,25 +209,32 @@ var T={
   aboveOnly:u(0x05DE,0x05E2,0x05DC,32,0x05D4,0x05DE,0x05D1,0x05E0,0x05D4,32,0x05D1,0x05DC,0x05D1,0x05D3),
   tailOnly:u(0x05D1,0x05D6,0x05E0,0x05D1,32,0x05D9,0x05DE,0x05D9,0x05E0,0x05D9,32,0x05D1,0x05DC,0x05D1,0x05D3)
 };
-var SURVEY={SCALE:100,plotWidth:9.9,yardTop:4.8,yardSide:2.9,shortLength:12.3,shortWidth:3.17,tailLong:15.6,builtArea:62.75,pathWidth:1.0};
+var SURVEY={SCALE:100,plotWidth:9.9,buildingMain:6.73,yardTop:4.8,yardSide:2.9,shortLength:12.3,shortWidth:3.17,tailLong:15.6,builtArea:62.75,pathWidth:1.0};
 function buildGeometry(s){
   var sc=s.SCALE,G={SCALE:sc,SURVEY:s};
-  G.TW=Math.round(s.plotWidth*sc);G.YW=Math.round(s.yardSide*sc);G.BW=G.TW-G.YW;
+  G.TW=Math.round(s.plotWidth*sc);G.YW=Math.round(s.yardSide*sc);
+  G.W_NARROW=Math.round(s.shortWidth*sc);G.W_WIDE=Math.round(s.buildingMain*sc);
+  G.BW=G.W_WIDE;G.YX=G.BW;
   G.TH=Math.round(s.yardTop*sc);G.YT=-G.TH;
-  G.L_SHORT=Math.round(s.shortLength*sc);G.W_SHORT=Math.round(s.shortWidth*sc);
-  G.L_LONG=Math.round(s.tailLong*sc);G.PATH=Math.round(s.pathWidth*sc);
-  G.BD=Math.round((s.shortLength-s.yardTop)*sc);G.MY=G.BD;
-  G.MW=Math.round(G.BW*200/700);G.MD=Math.round(G.BD*250/750);G.MX=G.BW-G.MW;
-  G.YX=G.BW;G.YD_END=G.MY;G.YD=G.YD_END-G.YT;
-  G.X_SALON=Math.round(G.BW*300/680);G.X_MID=Math.round(G.BW*500/680);
-  G.Y_PATIO=Math.round(G.BD*100/740);G.Y_KIT=Math.round(G.BD*250/740);
-  G.Y_BATH=Math.round(G.BD*470/740);G.Y_BED_H=Math.round(G.BD*250/740);
+  G.L_LEFT=Math.round(s.shortLength*sc);G.L_RIGHT=Math.round(s.tailLong*sc);
+  G.PATH=Math.round(s.pathWidth*sc);
+  G.BD=G.L_LEFT-G.TH;G.MY=G.BD;
+  G.SLAB_D=Math.max(80,Math.round((s.builtArea-(G.BW/sc)*(G.BD/sc))/(G.TW/sc)*sc));
+  G.YLOW=G.MY+G.SLAB_D;
+  G.MW=Math.round(G.W_WIDE*0.30);G.MD=G.SLAB_D;G.MX=G.TW-G.MW;
+  G.YD=G.L_RIGHT;
+  G.X_SALON=Math.round(G.BW*0.44);G.X_MID=Math.round(G.BW*0.74);
+  G.Y_PATIO=Math.round(G.BD*0.13);G.Y_KIT=Math.round(G.BD*0.33);
+  G.Y_BATH=Math.round(G.BD*0.63);G.Y_BED_H=Math.round(G.BD*0.33);
   G.STACK_X=Math.round(G.BW*0.73);G.STACK_Y=Math.round(G.BD*0.34);
   G.STACK_W=Math.round(G.BW*0.26);G.STACK_H=Math.round(G.BD*0.30);
   G.areaU1=s.builtArea;
   G.areaU2=Math.round(s.plotWidth*s.yardTop*10)/10;
-  G.areaU3=Math.round((s.yardSide-s.pathWidth)*G.MY/sc*10)/10;
+  G.areaU3=Math.round((s.yardSide-s.pathWidth)*G.BD/sc*10)/10;
   return G;
+}
+function buildingOutlinePath(){
+  return 'M 0 0 H '+G.BW+' V '+G.MY+' H '+G.TW+' V '+G.YLOW+' H '+G.W_NARROW+' V '+G.MY+' H 0 Z';
 }
 var G=buildGeometry(SURVEY);
 function updateMetrics(){
@@ -236,7 +243,7 @@ function updateMetrics(){
   var c2p=document.getElementById('c3-2p');if(c2p)c2p.textContent=u(0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05D7,0x05D3,0x05E9,0x05D4,32,0x05D1,0x05E8,0x05E6,0x05D5,0x05E2,0x05D4,32,0x05D4,0x05E2,0x05DC,0x05D9,0x05D5,0x05E0,0x05D4,32)+SURVEY.yardTop+u(0x05DE,0x05F3,32,0x05D1,0x05E8,0x05D5,0x05D7,0x05D1,32,0x05D4,0x05D7,0x05E6,0x05E8,0x2E,32,0x05E9,0x05D5,0x05DE,0x05E7,32,0x7E)+G.areaU2+u(0x20,0x05DE,0x05F4,0x05E8,0x2E);
   var c3p=document.getElementById('c3-3p');if(c3p)c3p.textContent=u(0x05D1,0x05E0,0x05D9,0x05D9,0x05D4,32,0x05D7,0x05D3,0x05E9,0x05D4,32,0x05D1,0x05D6,0x05E0,0x05D1,32,0x05D9,0x05DE,0x05E0,0x05D9,32)+SURVEY.yardSide+u(0x05DE,0x05F3,0x2E,32,0x05DE,0x05E1,0x05EA,0x05D9,0x05D9,0x05DD,32,0x05D1,0x05E8,0x05DE,0x05EA,32,0x05D4,0x05DE,0x05DE,0x05F4,0x05D3,0x2E,32,0x05E9,0x05D1,0x05D9,0x05DC,32)+SURVEY.pathWidth+u(0x05DE,0x05F3,32,0x05D0,0x05D5,0x05E4,0x05E6,0x05D9,0x05D5,0x05E0,0x05DC,0x05D9,0x2E,32,0x05E2,0x05E8,0x05DA,32,0x7E)+G.areaU3+u(0x20,0x05DE,0x05F4,0x05E8,0x2E);
   var s3=document.getElementById('sum-plan3');if(s3)s3.innerHTML='<strong>'+H.sum3.split(':')[0]+':</strong> '+u(0x05D9,0x05D7,0x05F3,0x05F3,0x31,32,0x05E7,0x05D9,0x05D9,0x05DD,32,0x2B,32,0x05D9,0x05D7,0x05F3,0x05F3,0x32,32,0x05D1,0x05E8,0x05E6,0x05E4,0x05D4,32,0x2B,32,0x05D9,0x05D7,0x05F3,0x05F3,0x33,32,0x05D1,0x05D6,0x05E0,0x05D1,32,0x2248,32)+tot+u(0x20,0x05DE,0x05F4,0x05E8,32,0x05D1,0x05E0,0x05D9,0x05D9,0x05D4);
-  document.querySelectorAll('.plan-svg').forEach(function(s){s.setAttribute('viewBox','-80 '+G.YT+' '+(G.TW+100)+' '+(G.MY+G.L_LONG+G.MD+200-G.YT));});
+  document.querySelectorAll('.plan-svg').forEach(function(s){s.setAttribute('viewBox','-80 '+G.YT+' '+(G.TW+100)+' '+(G.L_RIGHT+180));});
 }
 updateMetrics();
 function el(tag,attrs,children){var e=document.createElementNS('http://www.w3.org/2000/svg',tag);
@@ -257,35 +264,35 @@ function dimLine(x1,y1,x2,y2,label,opts){
 function drawDimensions(svg){
   var g=el('g',{id:'dimensions'});
   g.appendChild(dimLine(-20,G.YT,G.TW-20,G.YT,'9.9'+u(0x05DE,0x05F3)));
-  g.appendChild(dimLine(G.TW+15,G.YT,G.TW+15,0,'4.8'+u(0x05DE,0x05F3)));
-  g.appendChild(dimLine(G.TW+15,G.MY,G.TW+15,G.MY+G.L_LONG,'15.6'+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(G.TW+18,G.YT,G.TW+18,0,'4.8'+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(G.TW+18,G.YT,G.TW+18,G.YT+G.L_RIGHT,'15.6'+u(0x05DE,0x05F3)));
   g.appendChild(dimLine(G.BW,0,G.TW,0,'2.9'+u(0x05DE,0x05F3)));
-  g.appendChild(dimLine(-35,G.YT,-35,G.MY,'12.3'+u(0x05DE,0x05F3)));
-  g.appendChild(dimLine(G.BW-G.W_SHORT,G.MY,G.BW,G.MY,'3.17'+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(-38,G.YT,-38,G.YT+G.L_LEFT,'12.3'+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(0,G.YLOW,G.W_NARROW,G.YLOW,'3.17'+u(0x05DE,0x05F3)));
+  g.appendChild(dimLine(G.W_NARROW,G.YLOW,G.TW,G.YLOW,'6.73'+u(0x05DE,0x05F3)));
   svg.appendChild(g);
 }
 function drawBase(svg,prefix){
   var gid=(prefix||'g')+'-grid';
   svg.appendChild(el('defs',null,[el('pattern',{id:gid,width:'50',height:'50',patternUnits:'userSpaceOnUse'},[el('path',{d:'M 50 0 L 0 0 0 50',fill:'none',stroke:'#e8e8e8','stroke-width':'0.5'})])]));
   svg.appendChild(rect(-20,G.YT,G.TW,G.YD,'none','#795548',3,{'stroke-dasharray':'12 6'}));
-  svg.appendChild(txt(G.TW/2,G.YT+G.YD+25,T.plot,{'text-anchor':'middle',fill:'#795548','font-size':12}));
+  svg.appendChild(txt(G.TW/2,G.YT+G.L_RIGHT+30,T.plot,{'text-anchor':'middle',fill:'#795548','font-size':12}));
   svg.appendChild(el('g',{id:'yard-top'},[rect(-20,G.YT,G.TW,G.TH,'#e8f5e9','#66bb6a'),txt(G.TW/2,G.YT+G.TH/2,T.yardTop,{'text-anchor':'middle','font-size':14,fill:'#2e7d32','font-weight':'bold'})]));
-  svg.appendChild(el('g',{id:'yard-side'},[rect(G.YX,0,G.YW,G.MY+G.L_LONG,'#f1f8e9','#81c784'),
-    el('line',{x1:G.YX,y1:G.MY,x2:G.TW,y2:G.MY,stroke:'#66bb6a','stroke-width':1,'stroke-dasharray':'8 4'}),
-    txt(G.YX+G.YW+35,G.MY/2,T.yardSide,{'text-anchor':'middle','font-size':13,fill:'#2e7d32','font-weight':'bold',transform:'rotate(90 '+(G.YX+G.YW+35)+' '+(G.MY/2)+')'}),
-    txt(G.YX+G.YW+35,G.MY*0.85,T.yardSideSub,{'text-anchor':'middle','font-size':10,fill:'#558b2f',transform:'rotate(90 '+(G.YX+G.YW+35)+' '+(G.MY*0.85)+')'}),
+  svg.appendChild(el('g',{id:'yard-side'},[
+    rect(G.YX,G.YT,G.YW,G.L_RIGHT,'#f1f8e9','#81c784'),
+    txt(G.YX+G.YW+35,G.YT+G.L_RIGHT*0.45,T.yardSide,{'text-anchor':'middle','font-size':13,fill:'#2e7d32','font-weight':'bold',transform:'rotate(90 '+(G.YX+G.YW+35)+' '+(G.YT+G.L_RIGHT*0.45)+')'}),
+    txt(G.YX+G.YW+35,G.MY*0.5,T.yardSideSub,{'text-anchor':'middle','font-size':10,fill:'#558b2f',transform:'rotate(90 '+(G.YX+G.YW+35)+' '+(G.MY*0.5)+')'}),
     rect(G.YX,0,G.PATH,G.MY,'#fff9c4','#fbc02d',1.5,{'stroke-dasharray':'6 4'}),
     txt(G.YX+G.PATH/2,G.MY/2,T.path,{'text-anchor':'middle','font-size':10,fill:'#f57f17',transform:'rotate(90 '+(G.YX+G.PATH/2)+' '+(G.MY/2)+')'})]));
   svg.appendChild(rect(0,0,G.BW,G.BD,'url(#'+gid+')'));
-  svg.appendChild(el('path',{d:'M 0 0 H '+G.BW+' V '+G.BD+' H '+G.MX+' V '+(G.MY+G.MD)+' H 0 Z',fill:'none',stroke:'#1a1a1a','stroke-width':8}));
-  svg.appendChild(txt(G.BW/2,G.BD*0.55,T.builtExisting,{'text-anchor':'middle','font-size':11,fill:'#555','font-weight':'bold'}));
-  svg.appendChild(rect(G.BW-G.W_SHORT,G.MY-G.W_SHORT,G.W_SHORT,G.W_SHORT,'none','#795548',1,{'stroke-dasharray':'4 3'}));
+  svg.appendChild(el('path',{d:buildingOutlinePath(),fill:'none',stroke:'#1a1a1a','stroke-width':8}));
+  svg.appendChild(txt(G.BW*0.42,G.BD*0.52,T.builtExisting,{'text-anchor':'middle','font-size':11,fill:'#555','font-weight':'bold'}));
   drawDimensions(svg);
   var sg=el('g',{id:'scale-bar'});
-  sg.appendChild(rect(-50,G.YT+G.YD+55,G.SCALE,6,'#333','#333',1));
-  sg.appendChild(el('line',{x1:-50,y1:G.YT+G.YD+50,x2:-50,y2:G.YT+G.YD+66,stroke:'#333','stroke-width':2}));
-  sg.appendChild(el('line',{x1:-50+G.SCALE,y1:G.YT+G.YD+50,x2:-50+G.SCALE,y2:G.YT+G.YD+66,stroke:'#333','stroke-width':2}));
-  sg.appendChild(txt(-50+G.SCALE/2,G.YT+G.YD+78,T.scale1m,{'text-anchor':'middle','font-size':9,fill:'#555'}));
+  sg.appendChild(rect(-50,G.YT+G.L_RIGHT+45,G.SCALE,6,'#333','#333',1));
+  sg.appendChild(el('line',{x1:-50,y1:G.YT+G.L_RIGHT+40,x2:-50,y2:G.YT+G.L_RIGHT+56,stroke:'#333','stroke-width':2}));
+  sg.appendChild(el('line',{x1:-50+G.SCALE,y1:G.YT+G.L_RIGHT+40,x2:-50+G.SCALE,y2:G.YT+G.L_RIGHT+56,stroke:'#333','stroke-width':2}));
+  sg.appendChild(txt(-50+G.SCALE/2,G.YT+G.L_RIGHT+68,T.scale1m,{'text-anchor':'middle','font-size':9,fill:'#555'}));
   svg.appendChild(sg);
 }
 function drawMamadInUnit(svg,prefix,fill,stroke,fc){
@@ -419,7 +426,7 @@ function buildPlan4(svg){drawBase(svg,'p4');
     txt(G.X_MID+(G.BW-G.X_MID)/2,G.Y_BED_H/2,T.bed,{'text-anchor':'middle','font-size':12,fill:'#0d47a1','font-weight':'bold'}),
     txt((G.X_SALON+G.X_MID)/2,(G.Y_KIT+G.Y_BATH)/2,T.kitchen,{'text-anchor':'middle','font-size':11,fill:'#0d47a1'}),
     txt((G.X_SALON+G.X_MID)/2,G.Y_BATH+G.Y_BED_H/2,T.bath,{'text-anchor':'middle','font-size':11,fill:'#0d47a1'})
-  ]}));
+  ]));
   drawRooms(svg,{rooms:[
     {id:'unit2-base',x:G.X_MID,y:0,w:u2w,h:u2h,fill:'rgba(46,125,50,0.08)',stroke:'none'},
     {id:'unit2',x:G.X_MID,y:0,w:u2w,h:Math.round(u2h*0.53),fill:'rgba(46,125,50,0.25)',stroke:'#2e7d32',sw:2,label:T.Bt,sub:'~'+Math.round(u2w*u2h*0.53/10000)+' '+T.sqm,bold:true,fc:'#1b5e20'},
