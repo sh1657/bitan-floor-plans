@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -120 820 920" role="img" aria-labelledby="title desc">
+  <title id="title">&#x05EA;&#x05D5;&#x05DB;&#x05E0;&#x05D9;&#x05EA; Opened Core</title>
+  <desc id="desc">&#x05DE;&#x05D1;&#x05E0;&#x05D4; 6.8&#x00D7;7.4 &#x05DE;&#x05F3;, &#x05E4;&#x05D9;&#x05E6;&#x05D5;&#x05DC; &#x05DC;3 &#x05D9;&#x05D7;&#x05D9;&#x05D3;&#x05D5;&#x05EA;</desc>
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
+    </pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#333"/>
+    </marker>
+    <style>
+      .wall { fill: none; stroke: #1a1a1a; stroke-width: 6; stroke-linecap: square; }
+      .wall-thin { fill: none; stroke: #444; stroke-width: 3; stroke-dasharray: 8 6; }
+      .dim { font: 11px Arial, sans-serif; fill: #333; }
+      .label { font: 13px Arial, sans-serif; fill: #111; font-weight: bold; }
+      .sublabel { font: 10px Arial, sans-serif; fill: #444; }
+      .legend { font: 11px Arial, sans-serif; fill: #222; }
+    </style>
+  </defs>
+
+  <!-- Scale: 100px = 1 meter. Origin: front-left of main envelope (x right, y down/back) -->
+
+  <!-- Side yard (2.9m) -->
+  <rect x="680" y="-20" width="290" height="780" fill="#d4edda" stroke="#6c9a6e" stroke-width="2" rx="2"/>
+  <text x="825" y="380" class="label" text-anchor="middle" transform="rotate(90 825 380)">Чжи жУ 2.9 Юу</text>
+
+  <!-- Backyard (4.8m beyond 7.4m) -->
+  <rect x="-20" y="740" width="720" height="480" fill="#c8e6c9" stroke="#6c9a6e" stroke-width="2" rx="2"/>
+  <text x="340" y="980" class="label" text-anchor="middle">Чжи РЧХиЩк 4.8 Юу</text>
+
+  <!-- Mamad protrusion (front-right into yard) -->
+  <rect x="380" y="-100" width="300" height="300" fill="#ffcdd2" stroke="#c62828" stroke-width="3"/>
+  <text x="530" y="-15" class="label" text-anchor="middle">ЮЮфУ 3Ч3</text>
+  <text x="530" y="5" class="sublabel" text-anchor="middle">(СШХЯ  ЬР аХТвЩЭ)</text>
+
+  <!-- Main envelope background grid -->
+  <rect x="0" y="0" width="680" height="740" fill="url(#grid)"/>
+  <rect x="0" y="0" width="680" height="740" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+
+  <!-- Zoning fills -->
+  <!-- Living strip 3.0m -->
+  <rect x="0" y="0" width="300" height="740" fill="#fff3e0" opacity="0.85"/>
+  <!-- Private strip 3.8m -->
+  <rect x="300" y="0" width="380" height="740" fill="#e3f2fd" opacity="0.5"/>
+
+  <!-- Balcony 1.6m deep at back of living -->
+  <rect x="0" y="740" width="300" height="160" fill="#ffe082" stroke="#f9a825" stroke-width="2"/>
+  <text x="150" y="820" class="label" text-anchor="middle">Юидбк ЮзХиФ 1.6 Юу</text>
+
+  <!-- Room zones - Concept 1: Opened Core -->
+  <!-- Entry niche -->
+  <rect x="0" y="0" width="300" height="100" fill="#ffecb3" opacity="0.9"/>
+  <line x1="0" y1="100" x2="200" y2="100" class="wall"/>
+  <text x="150" y="55" class="label" text-anchor="middle">РЦХи ЫаЩбФ</text>
+  <text x="150" y="75" class="sublabel" text-anchor="middle">аЩйк зЩи 2 Юу + ЮбУиХЯ</text>
+
+  <!-- Living room -->
+  <text x="150" y="420" class="label" text-anchor="middle">бalon / Living</text>
+  <text x="150" y="440" class="sublabel" text-anchor="middle">ижХвФ 3.0 Ч 6.4 Юу аШХ</text>
+
+  <!-- Kitchen (opened to living) -->
+  <rect x="300" y="280" width="380" height="220" fill="#bbdefb" opacity="0.95"/>
+  <text x="490" y="370" class="label" text-anchor="middle">ЮШСЧ дкХЧ</text>
+  <text x="490" y="390" class="sublabel" text-anchor="middle">ЧЬХЯ ’ Чжи жУ</text>
+  <!-- Open partition - dashed -->
+  <line x1="300" y1="280" x2="300" y2="500" class="wall-thin"/>
+  <text x="310" y="395" class="sublabel" transform="rotate(-90 310 395)">дкЩЧФ ~2.2 Юу</text>
+
+  <!-- Bathroom (stack locked) -->
+  <rect x="300" y="100" width="380" height="180" fill="#b2dfdb" opacity="0.95"/>
+  <circle cx="350" cy="190" r="12" fill="#00695c"/>
+  <text x="350" cy="194" class="sublabel" fill="white" text-anchor="middle" font-size="9">зХЬШЯ</text>
+  <text x="490" y="185" class="label" text-anchor="middle">РЮСШЩФ + йЩиХкЩЭ</text>
+  <text x="490" y="205" class="sublabel" text-anchor="middle">жЮХУ ЬЮЮфУ  зСХв</text>
+
+  <!-- Bedroom suite -->
+  <rect x="300" y="500" width="380" height="240" fill="#c5cae9" opacity="0.95"/>
+  <text x="490" y="600" class="label" text-anchor="middle">ЧУи йЩаФ иРйЩ</text>
+  <text x="490" y="620" class="sublabel" text-anchor="middle">2 ЧЬХаХк (РЧХи + жУ)</text>
+  <!-- Walk-in closet -->
+  <rect x="300" y="500" width="120" height="100" fill="#9fa8da" opacity="0.9"/>
+  <text x="360" y="555" class="sublabel" text-anchor="middle">РиХЯ ФЬЩЫФ</text>
+
+  <!-- Mamad internal footprint -->
+  <rect x="380" y="0" width="300" height="100" fill="#ffcdd2" opacity="0.7"/>
+  <text x="530" y="55" class="sublabel" text-anchor="middle">ЧЬз даЩЮЩ ЮЮфУ</text>
+
+  <!-- Partition wall (full height) -->
+  <line x1="300" y1="0" x2="300" y2="740" class="wall" stroke-width="4" opacity="0.35"/>
+
+  <!-- Corridor wall (concealed) -->
+  <rect x="300" y="0" width="80" height="100" fill="#eceff1" stroke="#78909c" stroke-width="2"/>
+  <text x="340" y="55" class="sublabel" text-anchor="middle">ЮбУиХЯ</text>
+  <text x="340" y="72" class="sublabel" text-anchor="middle">диШЩ ~0.8 Юу</text>
+
+  <!-- Doors -->
+  <!-- Entrance 1m -->
+  <line x1="200" y1="0" x2="300" y2="0" stroke="#fff" stroke-width="10"/>
+  <path d="M 200 0 A 100 100 0 0 1 300 100" fill="none" stroke="#1565c0" stroke-width="2"/>
+  <text x="250" y="-12" class="sublabel" text-anchor="middle">УЬк ЫаЩбФ 1 Юу</text>
+
+  <!-- Vitrina to balcony -->
+  <line x1="50" y1="740" x2="250" y2="740" stroke="#f9a825" stroke-width="8"/>
+  <text x="150" y="730" class="sublabel" text-anchor="middle">ХЩШrina / дкЩЧФ</text>
+
+  <!-- Windows -->
+  <line x1="680" y1="320" x2="680" y2="460" stroke="#0288d1" stroke-width="10"/>
+  <line x1="680" y1="560" x2="680" y2="700" stroke="#0288d1" stroke-width="10"/>
+  <line x1="400" y1="740" x2="580" y2="740" stroke="#0288d1" stroke-width="10"/>
+
+  <!-- Flow arrows -->
+  <path d="M 150 200 L 150 350" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 250 390 L 290 390" fill="none" stroke="#e65100" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="155" y="280" class="sublabel" fill="#e65100">ЦиЩЮФ жЩСХиЩк</text>
+
+  <!-- Dimensions -->
+  <line x1="0" y1="-30" x2="680" y2="-30" stroke="#333" stroke-width="1" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="340" y="-38" class="dim" text-anchor="middle">6.8 Юу (3.0 + 3.8)</text>
+  <line x1="-30" y1="0" x2="-30" y2="740" stroke="#333" stroke-width="1" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="-35" y="370" class="dim" text-anchor="middle" transform="rotate(-90 -35 370)">7.4 Юу</text>
+  <line x1="0" y1="760" x2="300" y2="760" stroke="#333" stroke-width="1"/>
+  <text x="150" y="755" class="dim" text-anchor="middle">3.0 Юу</text>
+
+  <!-- Legend -->
+  <rect x="10" y="-110" width="260" height="75" fill="white" stroke="#ccc" rx="4"/>
+  <rect x="20" y="-100" width="14" height="14" fill="#fff3e0"/><text x="40" y="-89" class="legend">ЮТХиЩЭ (3 Юу)</text>
+  <rect x="20" y="-80" width="14" height="14" fill="#bbdefb"/><text x="40" y="-69" class="legend">ЮШСЧ дкХЧ</text>
+  <rect x="140" y="-100" width="14" height="14" fill="#b2dfdb"/><text x="160" y="-89" class="legend">РЮСШЩФ</text>
+  <rect x="140" y="-80" width="14" height="14" fill="#c5cae9"/><text x="160" y="-69" class="legend">йЩаФ</text>
+  <rect x="230" y="-100" width="14" height="14" fill="#ffcdd2"/><text x="250" y="-89" class="legend">ЮЮфУ</text>
+  <rect x="230" y="-80" width="14" height="14" fill="#c8e6c9"/><text x="250" y="-69" class="legend">ЧХе</text>
+</svg>
