@@ -182,40 +182,8 @@ var H={
   pdfTitle:u(0x05EA,0x05DB,0x05E0,0x05D9,0x05EA,32,0x35,32,0x2014,32,0x05D1,0x05D9,0x05EA,0x05DF),
   pdfSub:u(0x05D2,0x05E8,0x05E1,0x05D4,32,0x35,0x2E,0x34,0x2C,32,0x05EA,0x05DB,0x05E0,0x05D9,0x05EA,32,0x05E7,0x05D5,0x05DE,0x05EA,32,0x05E7,0x05E8,0x05E7,0x05E2),
 };
-function setUI(){
-  document.title=H.title;
-  document.getElementById('hdr-title').textContent=H.title;
-  document.getElementById('hdr-sub').textContent=H.sub;
-  var hv=document.getElementById('hdr-ver');if(hv)hv.textContent=H.ver;
-  document.getElementById('global-note').innerHTML='<strong>'+H.note.split(':')[0]+':</strong> '+H.note.split(':').slice(1).join(':');
-  document.getElementById('tab-phase0').textContent=H.tab0;
-  document.getElementById('tab-plan3').textContent=H.tab3;
-  document.getElementById('tab-plan4').textContent=H.tab4;
-  document.getElementById('tab-plan5').textContent=H.tab5;
-  document.getElementById('ftr').textContent=H.ftr;
-  ['p0','p3','p4','p5'].forEach(function(p){var el=document.getElementById('lbl-show-'+p);if(el)el.textContent=H.show;});
-  var btns={all:H.all,infra:H.infra,u0:H.u0btn,u1:H.u1btn,u2:H.u2btn,u3:H.u3btn,u4:H.u4btn,u5:H.u5btn,o1:H.o1btn};
-  document.querySelectorAll('.controls button').forEach(function(b){
-    var l=b.dataset.layer;if(btns[l])b.textContent=btns[l];
-  });
-  document.getElementById('c0-h').textContent=H.c0h;
-  document.getElementById('c0-p').textContent=H.c0p;
-  document.getElementById('c3-1h').textContent=H.c31h;document.getElementById('c3-1p').textContent=H.c31p;
-  document.getElementById('c3-2h').textContent=H.c32h;document.getElementById('c3-2p').textContent=H.c32p;
-  document.getElementById('c3-3h').textContent=H.c33h;document.getElementById('c3-3p').textContent=H.c33p;
-  document.getElementById('c4-ah').textContent=H.c4ah;document.getElementById('c4-ap').textContent=H.c4ap;
-  document.getElementById('c4-bh').textContent=H.c4bh;document.getElementById('c4-bp').textContent=H.c4bp;
-  document.getElementById('c4-ch').textContent=H.c4ch;document.getElementById('c4-cp').textContent=H.c4cp;
-  document.getElementById('c4-dh').textContent=H.c4dh;document.getElementById('c4-dp').textContent=H.c4dp;
-  document.getElementById('c5-1h').textContent=H.c51h;document.getElementById('c5-1p').textContent=H.c51p;
-  document.getElementById('c5-2h').textContent=H.c52h;document.getElementById('c5-2p').textContent=H.c52p;
-  document.getElementById('c5-3h').textContent=H.c53h;document.getElementById('c5-3p').textContent=H.c53p;
-  document.getElementById('c5-4h').textContent=H.c54h;document.getElementById('c5-4p').textContent=H.c54p;
-  document.getElementById('c5-5h').textContent=H.c55h;document.getElementById('c5-5p').textContent=H.c55p;
-  var lo=document.getElementById('lnk-online');if(lo){lo.textContent=H.lnkOnline;lo.href='https://sh1657.github.io/bitan-floor-plans/?v=5.4';}
-  var cl=document.getElementById('btn-copy-link');if(cl)cl.textContent=H.copyLink;
-  var s3=document.getElementById('sum-plan3');if(s3)s3.innerHTML='<strong>'+H.sum3.split(':')[0]+':</strong> '+H.sum3.split(':').slice(1).join(':');
-  var s5=document.getElementById('sum-plan5');if(s5)s5.innerHTML='<strong>'+H.sum5.split(':')[0]+':</strong> '+H.sum5.split(':').slice(1).join(':');
+function setPdfUI(){
+  document.title=H.pdfTitle;
   var pt=document.getElementById('pdf-hdr-title');if(pt)pt.textContent=H.pdfTitle;
   var ps=document.getElementById('pdf-hdr-sub');if(ps)ps.textContent=H.pdfSub;
   var pv=document.getElementById('pdf-hdr-ver');if(pv)pv.textContent='';
@@ -224,15 +192,6 @@ function setUI(){
   var t2=document.getElementById('ttl-u2');if(t2)t2.textContent=H.pdfU2;
   var t3=document.getElementById('ttl-u3');if(t3)t3.textContent=H.pdfU3;
 }
-setUI();
-var btnCopy=document.getElementById('btn-copy-link');
-if(btnCopy)btnCopy.addEventListener('click',function(){
-  var url='https://sh1657.github.io/bitan-floor-plans/?v=5.4';
-  navigator.clipboard.writeText(url).then(function(){
-    var b=document.getElementById('btn-copy-link');b.textContent=H.copied;
-    setTimeout(function(){b.textContent=H.copyLink;},2000);
-  });
-});
 
 var T={
   plot:u(0x05DE,0x05EA,0x05D7,0x05DD),
@@ -753,6 +712,7 @@ function setupPdfExport(){
     applyUnitLayer(s,u.layer);
   });
 }
+setPdfUI();
 setupPdfExport();
 
 </script>
